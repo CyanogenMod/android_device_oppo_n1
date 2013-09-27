@@ -90,14 +90,8 @@ lib/hw/sensors.msm8960.so
 lib/libAKM.so
 lib/libsensor1.so
 lib/libsensor_reg.so
-lib/libsensor_user_cal.so
 
 # Widevine
-etc/firmware/tzapps.b00
-etc/firmware/tzapps.b01
-etc/firmware/tzapps.b02
-etc/firmware/tzapps.b03
-etc/firmware/tzapps.mdt
 lib/libQSEEComAPI.so
 vendor/lib/libwvm.so
-vendor/lib/libWVStreamControlAPI_L1.so
+vendor/lib/libWVStreamControlAPI_L3.so
