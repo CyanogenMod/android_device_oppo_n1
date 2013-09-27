@@ -1,0 +1,103 @@
+# Executables
+bin/btnvtool
+bin/ds_fmc_appd
+bin/efsks
+bin/hci_qcomm_init
+bin/ks
+bin/mm-qcamera-daemon
+bin/mpdecision
+bin/netmgrd
+bin/nv_tee
+bin/qcks
+bin/qmuxd
+bin/qseecomd
+bin/rmt_storage
+bin/sensors.qcom
+bin/thermald
+
+# Audio
+lib/libacdbloader.so
+lib/libaudcal.so
+lib/libcsd-client.so
+
+# Camera
+lib/hw/camera.msm8960.so:lib/hw/vendor-camera.msm8960.so
+lib/libgemini.so
+lib/libimage-jpeg-enc-omx-comp.so
+lib/libimage-omx-common.so
+lib/libmmcamera_faceproc.so
+lib/libmmcamera_frameproc.so
+lib/libmmcamera_hdr_lib.so
+lib/libmmcamera_image_stab.so
+lib/libmmcamera_interface2.so
+lib/libmmcamera_statsproc31.so
+lib/libmmcamera_wavelet_lib.so
+lib/libmmjpeg.so
+lib/libmmstillomx.so
+lib/liboemcamera.so
+
+# GPS
+lib/libloc_api_v02.so
+
+# Graphics
+lib/egl/eglsubAndroid.so
+lib/egl/libEGL_adreno200.so
+lib/egl/libGLESv1_CM_adreno200.so
+lib/egl/libGLESv2_adreno200.so
+lib/egl/libq3dtools_adreno200.so
+lib/libc2d2_a3xx.so
+lib/libc2d2_z180.so
+lib/libC2D2.so
+lib/libgsl.so
+lib/libllvm-a3xx.so
+lib/libsc-a3xx.so
+
+# Graphics firmware
+etc/firmware/a300_pfp.fw
+etc/firmware/a300_pm4.fw
+etc/firmware/vidc.b00
+etc/firmware/vidc.b01
+etc/firmware/vidc.b02
+etc/firmware/vidc.b03
+etc/firmware/vidc.mdt
+etc/firmware/vidc_1080p.fw
+
+# Qualcomm framework
+lib/libdiag.so
+lib/libdsi_netctrl.so
+lib/libdsutils.so
+lib/libidl.so
+lib/libqcci_legacy.so
+lib/libqdi.so
+lib/libqdp.so
+lib/libqmi.so
+lib/libqmi_cci.so
+lib/libqmi_client_qmux.so
+lib/libqmi_common_so.so
+lib/libqmi_csi.so
+lib/libqmi_csvt_srvc.so
+lib/libqmi_encdec.so
+lib/libqmiservices.so
+
+# Radio
+lib/libnetmgr.so
+lib/libqc-opt.so
+lib/libril-qc-qmi-1.so
+lib/libril-qcril-hook-oem.so
+
+# Sensors
+lib/hw/sensors.msm8960.so
+lib/libAKM.so
+lib/libsensor1.so
+lib/libsensor_reg.so
+lib/libsensor_user_cal.so
+
+# Widevine
+etc/firmware/tzapps.b00
+etc/firmware/tzapps.b01
+etc/firmware/tzapps.b02
+etc/firmware/tzapps.b03
+etc/firmware/tzapps.mdt
+lib/libQSEEComAPI.so
+vendor/lib/libwvm.so
+vendor/lib/libWVStreamControlAPI_L1.so
