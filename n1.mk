@@ -115,8 +115,8 @@ PRODUCT_COPY_FILES += \
 #    keystore.msm8960
 
 # Lights
-#PRODUCT_PACKAGES += \
-#    lights.msm8960
+PRODUCT_PACKAGES += \
+    lights.msm8960
 
 # Media profile
 PRODUCT_COPY_FILES += \
