@@ -10,7 +10,6 @@ bin/netmgrd
 bin/nv_tee
 bin/qcks
 bin/qmuxd
-bin/quickboot
 bin/qseecomd
 bin/rmt_storage
 bin/sensors.qcom
@@ -36,9 +35,6 @@ lib/libmmcamera_wavelet_lib.so
 lib/libmmjpeg.so
 lib/libmmstillomx.so
 lib/liboemcamera.so
-
-# Charger
-lib/libquickboot.so
 
 # GPS
 lib/libloc_api_v02.so

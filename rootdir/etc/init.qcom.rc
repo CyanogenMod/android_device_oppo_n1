@@ -612,10 +612,8 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     disabled
     oneshot
 
-service charger /system/bin/quickboot
-    class core
-    user root
-    oneshot
+service charger /charger
+    class charger
 
 service ssr_diag /system/bin/ssr_diag
     class late_start
