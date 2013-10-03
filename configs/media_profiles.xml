@@ -225,36 +225,6 @@
              channels="2" />
     </EncoderProfile>
 
-<!--#ifdef VENDOR_EDIT-->
-    <!--Jason.Lee@OnLineRD.MultiMediaService, 2012/11/24, Add for VGA High-FrameRate VidioRecord-->
-    <EncoderProfile quality="vga_hfr" fileFormat="mp4" duration="30">
-      <Video codec="h264"
-             bitRate="2000000"
-             width="640"
-             height="480"
-             frameRate="30" />
-
-      <Audio codec="aac"
-             bitRate="156000"
-             sampleRate="48000"
-             channels="2" />
-    </EncoderProfile>
-
-    <!--wangb@OnLineRD.MultiMediaService, 2013/08/29, Add for WVGA High-FrameRate VidioRecord-->
-    <EncoderProfile quality="wvga_hfr" fileFormat="mp4" duration="30">
-      <Video codec="h264"
-             bitRate="2000000"
-             width="800"
-             height="480"
-             frameRate="30" />
-
-      <Audio codec="aac"
-             bitRate="156000"
-             sampleRate="48000"
-             channels="2" />
-    </EncoderProfile>
-<!--#endif  VENDOR_EDIT -->
-
     <EncoderProfile quality="timelapselow" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="192000"
@@ -521,22 +491,6 @@
              sampleRate="48000"
              channels="2" />
     </EncoderProfile>
-
-<!--#ifdef VENDOR_EDIT-->
-<!--Jason.Lee@OnLineRD.MultiMediaService, 2012/11/24, Add for VGA High-FrameRate VidioRecord-->
-    <EncoderProfile quality="vga_hfr" fileFormat="mp4" duration="30">
-      <Video codec="h264"
-             bitRate="2000000"
-             width="640"
-             height="480"
-             frameRate="30" />
-
-      <Audio codec="aac"
-             bitRate="156000"
-             sampleRate="48000"
-             channels="2" />
-    </EncoderProfile>
-<!--#endif  VENDOR_EDIT -->
 
     <EncoderProfile quality="timelapselow" fileFormat="mp4" duration="30">
       <Video codec="h264"
