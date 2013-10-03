@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2012, The Linux Foundation. All rights reserved.
+# Copyright (c) 2011, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -32,20 +32,22 @@
 PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 export PATH
 
-SENSOR_HAL_SYMLINK=/system/lib/hw/sensors.qcom.so
+MDM_IMAGES=/firmware/image
+cd $MDM_IMAGES
+ln -s $MDM_IMAGES/apps.mbn /system/etc/firmware/apps.mbn 2>/dev/null
+ln -s $MDM_IMAGES/dsp1.mbn /system/etc/firmware/dsp1.mbn 2>/dev/null
+ln -s $MDM_IMAGES/dsp2.mbn /system/etc/firmware/dsp2.mbn 2>/dev/null
+ln -s $MDM_IMAGES/dsp3.mbn /system/etc/firmware/dsp3.mbn 2>/dev/null
+ln -s $MDM_IMAGES/rpm.mbn  /system/etc/firmware/rpm.mbn  2>/dev/null
+ln -s $MDM_IMAGES/sbl1.mbn /system/etc/firmware/sbl1.mbn 2>/dev/null
+ln -s $MDM_IMAGES/sbl2.mbn /system/etc/firmware/sbl2.mbn 2>/dev/null
+ln -s $MDM_IMAGES/efs1.mbn /system/etc/firmware/efs1.mbn 2>/dev/null
+ln -s $MDM_IMAGES/efs2.mbn /system/etc/firmware/efs2.mbn 2>/dev/null
+ln -s $MDM_IMAGES/efs3.mbn /system/etc/firmware/efs3.mbn 2>/dev/null
+ln -s $MDM_IMAGES/acdb.mbn /system/etc/firmware/acdb.mbn 2>/dev/null
+ln -s $MDM_IMAGES/mdm_acdb.img /system/etc/firmware/mdm_acdb.img 2>/dev/null
 
-# symlink already exists, exit
-if [ -h $SENSOR_HAL_SYMLINK ]; then
-	exit 0
-fi
 
-# create symlink to target-specific config file
-platformid=`cat /sys/devices/system/soc/soc0/id`
-case "$platformid" in
-    "116" | "117" | "118" | "119" | "142" | "143" | "144" | "154" | "155" | "156" | "157" | "179" | "180" | "181")
-    ln -s /system/lib/hw/sensors.msm8930.so $SENSOR_HAL_SYMLINK 2>/dev/null
-    ;;
+cd /
 
-    *)
-    ;;
-esac
+

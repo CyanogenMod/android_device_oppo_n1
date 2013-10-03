@@ -39,6 +39,7 @@ setprop qcom.thermal thermald
 
 # Figure out if thermal-engine should start
 platformid=`cat /sys/devices/system/soc/soc0/id`
+hw_platform=`cat /sys/devices/system/soc/soc0/hw_platform`
 case "$platformid" in
     "153") #APQ/MPQ8064ab
     setprop qcom.thermal thermal-engine
@@ -49,42 +50,27 @@ esac
 if [ ! -h $THERMALD_CONF_SYMLINK ]; then
  # create symlink to target-specific config file
  case "$platformid" in
-     "109" | "130") #APQ/MPQ8064
-#ifdef VENDOR_EDIT Modify by qiujf for different project
-     productid=`cat sys/devices/system/soc/soc0/hw_rf_version`
-     case "$productid" in
-        "X909")
-        CONFIG_FILE=/etc/thermald-8064-X909.conf
-        ;;
-
-        "X909T")
-        CONFIG_FILE=/etc/thermald-8064-X909T.conf
-        ;;
-
-        "N1" | "N1T")
-        CONFIG_FILE=/etc/thermald-8064-N1.conf
-        ;;
-     esac
-
-     if [ -a "$CONFIG_FILE" ]; then
-        ln -s $CONFIG_FILE $THERMALD_CONF_SYMLINK 2>/dev/null
-     else
-        ln -s /etc/thermald-8064.conf $THERMALD_CONF_SYMLINK 2>/dev/null
-     fi
-#else
-    #ln -s /etc/thermald-8064.conf $THERMALD_CONF_SYMLINK 2>/dev/null
-#VENDOR_EDIT Modify by qiujf end
+     "109" | "130" | "172") #APQ/MPQ8064 & APQ/MPQ8064aa
+     ln -s /etc/thermald-8064.conf $THERMALD_CONF_SYMLINK 2>/dev/null
      ;;
 
      "153") #APQ/MPQ8064ab
      ln -s /etc/thermald-8064ab.conf $THERMALD_CONF_SYMLINK 2>/dev/null
      ;;
 
-     "116" | "117" | "118" | "119" | "120" | "121" | "142" | "143" | "144" | "160" | "179" | "180" | "181") #MSM8x30&MSM8x27
-     ln -s /etc/thermald-8930.conf $THERMALD_CONF_SYMLINK 2>/dev/null
+     "116" | "117" | "118" | "119" | "120" | "121" | "142" | "143" | "144" | "160" | "179" | "180") #MSM8x30&MSM8x27
+     case "$hw_platform" in
+          "QRD") #8x30 QRD
+          ln -s /etc/thermald-8930-qrd.conf $THERMALD_CONF_SYMLINK 2>/dev/null
+          ;;
+
+          *)
+          ln -s /etc/thermald-8930.conf $THERMALD_CONF_SYMLINK 2>/dev/null
+	  ;;
+     esac
      ;;
 
-     "154" | "155" | "156" | "157") #MSM8930ab
+     "154" | "155" | "156" | "157" | "181") #MSM8930ab
      ln -s /etc/thermald-8930ab.conf $THERMALD_CONF_SYMLINK 2>/dev/null
      ;;
 
@@ -103,7 +89,7 @@ THERMAL_ENGINE_CONF_SYMLINK=/etc/thermal-engine.conf
 if [ ! -h $THERMAL_ENGINE_CONF_SYMLINK ]; then
  # create symlink to target-specific config file
  case "$platformid" in
-     "109" | "130") #APQ/MPQ8064
+     "109" | "130" | "172") #APQ/MPQ8064 & APQ/MPQ8064aa
      ln -s /etc/thermal-engine-8064.conf $THERMAL_ENGINE_CONF_SYMLINK 2>/dev/null
      ;;
 
