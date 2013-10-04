@@ -85,8 +85,8 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 # GPS
-#PRODUCT_PACKAGES += \
-#    gps.msm8960
+PRODUCT_PACKAGES += \
+    gps.msm8960
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
