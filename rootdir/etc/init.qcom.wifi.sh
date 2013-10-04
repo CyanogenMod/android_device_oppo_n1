@@ -218,8 +218,8 @@ case "$target" in
         echo "*** Use the default WCN driver.                             **"
         setprop wlan.driver.ath 0 
         rm  /system/lib/modules/wlan.ko
-        ln -s /system/lib/modules/prima/prima_wlan.ko /system/lib/modules/wlan.ko
-        ln -s /system/lib/modules/prima/cfg80211.ko /system/lib/modules/cfg80211.ko
+        ln -s /persist/WCNSS_qcom_cfg.ini /vendor/firmware/wlan/prima/WCNSS_qcom_cfg.ini
+        ln -s /persist/WCNSS_qcom_wlan_nv.bin /vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
         # Populate the writable driver configuration file
         if [ ! -e /data/misc/wifi/WCNSS_qcom_cfg.ini ]; then
             if [ -f /persist/WCNSS_qcom_cfg.ini ]; then

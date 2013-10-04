@@ -140,6 +140,9 @@ PRODUCT_PACKAGES += \
     Tag \
     com.android.nfc_extras
 
+# QRNGD
+PRODUCT_PACKAGES += qrngd
+
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
@@ -154,13 +157,17 @@ PRODUCT_PACKAGES += \
     libstagefrighthw
 
 # Power
-#PRODUCT_PACKAGES += \
-#    power.msm8960
+PRODUCT_PACKAGES += \
+    power.msm8960
 
 # Thermal config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermald-8064.conf:system/etc/thermald-8064.conf \
     $(LOCAL_PATH)/configs/thermal-engine-8064.conf:system/etc/thermal-engine-8064.conf
+
+# WiFi
+PRODUCT_COPY_FILES += \
+    device/oppo/n1/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat
 
 # Torch
 PRODUCT_PACKAGES += \
