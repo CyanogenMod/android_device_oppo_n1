@@ -62,6 +62,9 @@ etc/firmware/vidc.b03
 etc/firmware/vidc.mdt
 etc/firmware/vidc_1080p.fw
 
+# NFC
+etc/firmware/libpn544_fw.so:vendor/firmware/libpn544_fw.so
+
 # Qualcomm framework
 lib/libdiag.so
 lib/libdsi_netctrl.so
