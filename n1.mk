@@ -99,6 +99,11 @@ PRODUCT_PACKAGES += \
     libgenlock \
     liboverlay
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qualcomm.cabl=1 \
+    hw.cabl.level=Auto \
+    persist.qcom.cabl.video_only=1
+
 # Input device config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/y8c20x66a-rmi-ts.idc:system/usr/idc/y8c20x66a-rmi-ts.idc
@@ -188,12 +193,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.hw=1 \
     debug.mdpcomp.logs=0 \
     debug.sf.hw=1 \
-    dev.pm.dyn_samplingrate=1 \
     lpa.decode=true \
     persist.audio.fluence.mode=endfire \
     persist.audio.vr.enable=false \
     persist.audio.handset.mic=digital \
-    persist.audio.speaker.location=high \
     persist.gps.qmienabled=true \
     persist.hwc.mdpcomp.enable=true \
     persist.thermal.monitor=true \
