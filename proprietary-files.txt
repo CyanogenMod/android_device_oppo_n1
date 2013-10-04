@@ -1,4 +1,5 @@
 # Executables
+bin/bridgemgrd
 bin/btnvtool
 bin/ds_fmc_appd
 bin/efsks
@@ -10,7 +11,6 @@ bin/netmgrd
 bin/nv_tee
 bin/qcks
 bin/qmuxd
-bin/qseecomd
 bin/rmt_storage
 bin/sensors.qcom
 bin/thermald
@@ -21,18 +21,26 @@ lib/libaudcal.so
 lib/libcsd-client.so
 
 # Camera
-lib/hw/camera.msm8960.so:lib/hw/vendor-camera.msm8960.so
+lib/hw/camera.msm8960.so
 lib/libgemini.so
 lib/libimage-jpeg-enc-omx-comp.so
 lib/libimage-omx-common.so
+lib/libmercury.so
+lib/libmmcamera_3a_legacy.so
 lib/libmmcamera_faceproc.so
 lib/libmmcamera_frameproc.so
 lib/libmmcamera_hdr_lib.so
 lib/libmmcamera_image_stab.so
+lib/libmmcamera_imx091.so
 lib/libmmcamera_interface2.so
+lib/libmmcamera_interface.so
+lib/libmmcamera_plugin.so
 lib/libmmcamera_statsproc31.so
+lib/libmmcamera_tintless_algo.so
+lib/libmmcamera_tintless_wrapper.so
 lib/libmmcamera_wavelet_lib.so
 lib/libmmjpeg.so
+lib/libmmjpeg_interface.so
 lib/libmmstillomx.so
 lib/liboemcamera.so
 
@@ -94,7 +102,26 @@ lib/libAKM.so
 lib/libsensor1.so
 lib/libsensor_reg.so
 
-# Widevine
+# DRM
+bin/oemwvtest
+bin/drmdiagapp
+bin/qseecomd
+lib/libdrmdecrypt.so
+lib/libdrmdiag.so
+lib/libdrmfs.so
+lib/libdrmtime.so
 lib/libQSEEComAPI.so
+vendor/lib/libwvdrm_L3.so
 vendor/lib/libwvm.so
 vendor/lib/libWVStreamControlAPI_L3.so
+vendor/lib/drm/libdrmwvmplugin.so
+
+# Misc
+lib/libqc-opt.so
+lib/libadsprpc.so
+
+# CABL
+bin/mm-pp-daemon
+lib/libmm-abl.so
+lib/libmm-abl-oem.so
+
