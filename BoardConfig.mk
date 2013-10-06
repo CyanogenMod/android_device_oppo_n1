@@ -71,7 +71,7 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/oppo/n1/bluetooth
 
 # GPS
-#BOARD_HAVE_NEW_QC_GPS := true
+BOARD_HAVE_NEW_QC_GPS := true
 
 # Graphics
 BOARD_EGL_CFG := device/oppo/n1/configs/egl.cfg
