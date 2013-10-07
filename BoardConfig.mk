@@ -161,5 +161,7 @@ BOARD_VOLD_MAX_PARTITIONS := 36
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/oppo/n1
 
+BOARD_RIL_NO_CELLINFOLIST := true
+
 # inherit from the proprietary version
 -include vendor/oppo/n1/BoardConfigVendor.mk
