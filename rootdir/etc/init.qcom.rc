@@ -206,6 +206,10 @@ on post-fs-data
 
     mkdir /data/audio/ 0770 media audio
 
+    # Torch
+    chown system camera /sys/class/leds/flashlight/brightness
+    chmod 0660 /sys/class/leds/flashlight/brightness
+
     setprop vold.post_fs_data_done 1
 
 # Export GPIO56 for fusion targets to enable/disable hub
