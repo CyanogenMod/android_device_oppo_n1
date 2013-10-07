@@ -174,7 +174,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/oppo/n1/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat
 
-PRODUCT_PACKAGES += wcnss_service
+PRODUCT_PACKAGES += \
+    wcnss_service \
+    crda \
+    regulatory.bin \
+    linville.key.pub.pem
 
 # Torch
 PRODUCT_PACKAGES += \
