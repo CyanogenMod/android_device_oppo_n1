@@ -193,6 +193,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
+# Init logos
+PRODUCT_PACKAGES += \
+    at.rle \
+    fastboot.rle \
+    initlogo.rle \
+    tpupdate.rle \
+    wlan.rle
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
