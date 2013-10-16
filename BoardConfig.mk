@@ -86,7 +86,7 @@ TARGET_USES_ION := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Power
-TARGET_PROVIDES_POWERHAL := true
+TARGET_USES_CM_POWERHAL := true
 
 # Tuning
 #BOARD_HARDWARE_CLASS := device/oppo/n1/cmhw
