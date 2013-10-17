@@ -100,16 +100,6 @@ case "$target" in
         start quipc_main
 esac
 
-case "$target" in
-        "msm8960" | "msm8974")
-        start location_mq
-        start lowi-server
-        if [ "$izat_premium_enablement" -eq 1 ]; then
-            start xtwifi_inet
-            start xtwifi_client
-        fi
-esac
-
 start_sensors
 
 case "$target" in
