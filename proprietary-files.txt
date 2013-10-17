@@ -3,6 +3,7 @@ bin/bridgemgrd
 bin/btnvtool
 bin/ds_fmc_appd
 bin/efsks
+bin/gsiff_daemon
 bin/hci_qcomm_init
 bin/ks
 bin/mm-qcamera-daemon
@@ -11,8 +12,10 @@ bin/netmgrd
 bin/nv_tee
 bin/qcks
 bin/qmuxd
+bin/radish
 bin/rmt_storage
 bin/sensors.qcom
+bin/time_daemon
 bin/thermald
 
 # Audio
