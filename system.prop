@@ -3,6 +3,7 @@
 #
 ro.sf.lcd_density=480
 ro.qualcomm.cabl=0
+debug.egl.recordable.rgba8888=1
 
 # RIL properties
 DEVICE_PROVISIONED=1
@@ -24,8 +25,8 @@ debug.nfc.fw_boot_download=false
 debug.nfc.se=true
 ro.nfc.port=I2C
 
-# Audio
-lpa.decode=true
+# Audio (FIXME)
+lpa.decode=false
 tunnel.audiovideo.decode=true
 tunnel.decode=false
 persist.audio.fluence.mode=endfire
