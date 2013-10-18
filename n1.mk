@@ -104,11 +104,6 @@ PRODUCT_PACKAGES += \
     libgenlock \
     liboverlay
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.cabl=1 \
-    hw.cabl.level=Auto \
-    persist.qcom.cabl.video_only=1
-
 # Input device config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/y8c20x66a-rmi-ts.idc:system/usr/idc/y8c20x66a-rmi-ts.idc
