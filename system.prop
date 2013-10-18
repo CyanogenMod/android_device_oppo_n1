@@ -1,7 +1,7 @@
 #
 # system.prop for n1
 #
-ro.sf.lcd_density=377
+ro.sf.lcd_density=480
 
 # RIL properties
 DEVICE_PROVISIONED=1
