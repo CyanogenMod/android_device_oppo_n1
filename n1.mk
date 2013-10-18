@@ -166,9 +166,6 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libstagefrighthw
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    qcom.hw.aac.encoder=true
-
 # Power
 PRODUCT_PACKAGES += \
     power.msm8960
