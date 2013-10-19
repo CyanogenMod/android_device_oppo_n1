@@ -75,8 +75,8 @@ PRODUCT_PACKAGES += \
     tinymix
 
 # Camera
-PRODUCT_PACKAGES += \
-    camera.msm8960
+#PRODUCT_PACKAGES += \
+#    camera.msm8960
 
 # Charger
 PRODUCT_PACKAGES += \
