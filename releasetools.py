@@ -19,7 +19,7 @@
 import common
 import re
 
-def LoadFilesMap(zip, type):
+def LoadFilesMap(zip):
   try:
     data = zip.read("RADIO/filesmap")
   except KeyError:
@@ -71,7 +71,7 @@ def FULLOTA_InstallEnd_MMC(info):
   info.script.UnmountAll()
   info.script.Print("Writing radio image...")
   #Load filesmap file
-  filesmap = LoadFilesMap(info.input_zip, info.type)
+  filesmap = LoadFilesMap(info.input_zip)
   if filesmap == {}:
       print "warning radio-update: no or invalid filesmap file found. not flashing radio"
       return
@@ -80,15 +80,8 @@ def FULLOTA_InstallEnd_MMC(info):
     InstallRawImage(image_data, info.input_version, info.input_zip, f, info, filesmap)
   return
 
-def FULLOTA_InstallEnd_MTD(info):
-  print "warning radio-update: no implementation for radio upgrade for NAND devices"
-  return
-
 def FullOTA_InstallEnd(info):
-  if info.type == 'MTD':
-    FULLOTA_InstallEnd_MTD(info)
-  if info.type == 'MMC':
-    FULLOTA_InstallEnd_MMC(info)
+  FULLOTA_InstallEnd_MMC(info)
 
 def IncrementalOTA_InstallEnd(info):
   #TODO: Implement device specific asserstions.
