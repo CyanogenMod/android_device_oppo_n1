@@ -44,7 +44,6 @@ case "$1" in
                 ln -s  /system/usr/keychars/surf_keypad_qwerty.kcm.bin /system/usr/keychars/surf_keypad.kcm.bin
                 ;;
             "Fluid")
-                setprop ro.sf.lcd_density 240
                 setprop qcom.bt.dev_power_class 2
                 ;;
             *)
@@ -56,7 +55,6 @@ case "$1" in
     "msm8660")
         case "$soc_hwplatform" in
             "Fluid")
-                setprop ro.sf.lcd_density 240
                 ;;
             "Dragon")
                 setprop ro.sound.alsa "WM8903"
@@ -72,21 +70,16 @@ case "$1" in
                     setprop ro.sf.hwrotation 90
                 fi
 
-                setprop ro.sf.lcd_density 160
                 ;;
             "MTP")
-                setprop ro.sf.lcd_density 240
                 ;;
             *)
                 case "$soc_hwid" in
                     "142") #8x30 QRD
-                        setprop ro.sf.lcd_density 320
                         ;;
                     "109")
-                        setprop ro.sf.lcd_density 160
                         ;;
                     *)
-                        setprop ro.sf.lcd_density 240
                         ;;
                 esac
             ;;
