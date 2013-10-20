@@ -1,2 +1,2 @@
-touch.deviceType = touchPad
+touch.deviceType = gesture
 touch.orientationAware = 1
