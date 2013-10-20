@@ -213,4 +213,13 @@
 
     <!-- Enable flashlight -->
     <bool name="config_enableTorch">true</bool>
+
+    <!-- The list absolute paths of jar/apk files containing the device specific handlers,
+         delimited by File.pathSeparator, which defaults to ":" on Android -->
+    <string name="config_deviceHandlersLib" translatable="false">/system/framework/com.cyanogenmod.n1.keyhandler.jar</string>
+
+    <!-- Full qualified name of the class that implements
+         com.android.internal.os.DeviceKeyHandler interface. -->
+    <string name="config_deviceKeyHandlerClass" translatable="false">com.cyanogenmod.n1.keyhandler.KeyHandler</string>
+
 </resources>
