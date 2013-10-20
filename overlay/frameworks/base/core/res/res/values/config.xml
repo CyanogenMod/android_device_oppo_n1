@@ -209,7 +209,7 @@
     <bool name="config_hotswapCapable">true</bool>
 
     <!-- True if the gesture service should be started at system start -->
-    <bool name="config_enableGestureService">false</bool>
+    <bool name="config_enableGestureService">true</bool>
 
     <!-- Enable flashlight -->
     <bool name="config_enableTorch">true</bool>
