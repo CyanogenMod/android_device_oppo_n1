@@ -7,6 +7,3 @@ LOCAL_SRC_FILES := \
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE:= com.cyanogenmod.n1.keyhandler
 include $(BUILD_JAVA_LIBRARY)
-
-include $(CLEAR_VARS)
-include $(call all-makefiles-under,$(LOCAL_PATH))
