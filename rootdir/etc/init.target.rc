@@ -168,8 +168,8 @@ on property:persist.sys.touchpanel.enable=false
     write /proc/touchpanel/glove_mode_enable 0
     write /proc/touchpanel/music_enable 0
 
-on property:persist.sys.gesturesensor.enable=true
+on property:persist.sys.gsensor.enable=true
     write /proc/touchpad/enable 1
 
-on property:persist.sys.gesturesensor.enable=false
+on property:persist.sys.gsensor.enable=false
     write /proc/touchpad/enable 0

@@ -5,7 +5,7 @@ ro.sf.lcd_density=480
 ro.qualcomm.cabl=0
 debug.egl.recordable.rgba8888=1
 persist.sys.touchpanel.enable=true
-persist.sys.gesturesensor.enable=true
+persist.sys.gsensor.enable=true
 
 # RIL properties
 DEVICE_PROVISIONED=1
