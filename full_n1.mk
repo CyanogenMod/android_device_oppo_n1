@@ -21,6 +21,6 @@ $(call inherit-product, device/oppo/n1/n1.mk)
 # Discard inherited values and use our own instead.
 PRODUCT_NAME := full_n1
 PRODUCT_DEVICE := n1
-PRODUCT_BRAND := oppo
-PRODUCT_MANUFACTURER := oppo
+PRODUCT_BRAND := OPPO
+PRODUCT_MANUFACTURER := OPPO
 PRODUCT_MODEL := N1
