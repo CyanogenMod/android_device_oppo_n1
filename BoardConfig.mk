@@ -122,7 +122,7 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/oppo/n1
+BOARD_SEPOLICY_DIRS += device/oppo/n1/sepolicy
 BOARD_SEPOLICY_UNION += \
     file_contexts \
     property_contexts \
