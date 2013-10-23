@@ -43,6 +43,9 @@ start_sensors()
         mkdir -p /data/misc/sensors
         chmod 775 /data/misc/sensors
 
+        touch /persist/sns.reg
+        chmod 700 /persist/sns.reg
+
         if [ ! -s /data/system/sensors/settings ]; then
             # If the settings file is empty, enable sensors HAL
             # Otherwise leave the file with it's current contents
