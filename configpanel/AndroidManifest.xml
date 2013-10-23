@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          android:sharedUserId="android.uid.system"
+          package="com.cyanogenmod.n1.configuration"
+          android:versionCode="4"
+          android:versionName="2.2" >
+
+    <uses-sdk
+            android:minSdkVersion="18"
+            android:targetSdkVersion="18" />
+
+    <application android:label="@string/app_name" >
+
+        <!-- stub to ensure its loaded - DO NOT REMOVE -->
+        <activity android:name=".KeyHandler"/>
+
+	<activity android:name=".ConfigurationPanel" android:label="@string/app_name">
+	  <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+	</activity>
+
+       <receiver android:name=".Startup" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

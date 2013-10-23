@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Config Panel</string>
+
+    <!-- Touchpad preference strings -->
+    <string name="touchpad_preference_title">Touchpad configurations</string>
+    <string name="touchpad_enable_title">Enable touchpad</string>
+    <string name="touchpad_enable_summary">Back touchpad can be used to navigate the phone</string>
+    <string name="touchpad_long_press_title">Enable long press to launch camera</string>
+    <string name="touchpad_long_press_summary">Long pressing on the touchpad will launch the camera application</string>
+    <string name="touchpad_double_tap_title">Enable double tap to capture</string>
+    <string name="touchpad_double_tap_summary">Double tapping on the touchpad will capture an image if the camera is open</string>
+    <string name="touchscreen_gestures_title">Touchscreen gestures</string>
+    <string name="touchscreen_camera_gesture_title">Camera gesture</string>
+    <string name="touchscreen_camera_gesture_summary">Draw a circle while the screen is off to activate camera</string>
+    <string name="touchscreen_music_gesture_title">Music gesture</string>
+    <string name="touchscreen_music_gesture_summary">Swipe two fingers down to play/pause, right/left arrow to skip forward/backward in music app</string>
+    <string name="touchscreen_flashlight_gesture_title">Flashlight gesture</string>
+    <string name="touchscreen_flashlight_gesture_summary">Draw V to toggle flashlight</string>
+
+</resources>

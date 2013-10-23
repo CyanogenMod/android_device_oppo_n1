@@ -109,7 +109,7 @@ PRODUCT_COPY_FILES += \
 
 # Keyhandler
 PRODUCT_PACKAGES += \
-    com.cyanogenmod.n1.keyhandler
+    ConfigPanel
 
 # Keylayouts
 PRODUCT_COPY_FILES += \

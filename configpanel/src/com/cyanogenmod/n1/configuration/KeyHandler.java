@@ -1,4 +1,4 @@
-package com.cyanogenmod.n1.keyhandler;
+package com.cyanogenmod.n1.configuration;
 
 import android.app.ActivityManagerNative;
 import android.content.Context;
