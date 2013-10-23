@@ -15,6 +15,5 @@
 -->
 
 <resources>
-    <!-- LED Flashlight -->
   <bool name="config_show_volumeRockerWake">true</bool>
 </resources>
