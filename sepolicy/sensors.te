@@ -25,7 +25,7 @@ allow sensors sensors_device:chr_file rw_file_perms;
 allow sensors power_control_device:chr_file { write open append };
 
 # Access to /persist/sensors
-allow sensors persist_file:dir { search getattr };
+allow sensors persist_file:dir { read open search getattr };
 allow sensors persist_sensors_file:dir r_dir_perms;
 allow sensors persist_sensors_file:file rw_file_perms;
 

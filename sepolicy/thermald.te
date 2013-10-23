@@ -11,6 +11,8 @@ allow thermald self:capability { net_admin fsetid dac_override };
 
 allow thermald self:socket { ioctl create write read };
 allow thermald self:netlink_kobject_uevent_socket { read create setopt bind };
+allow thermald socket_device:dir { write add_name };
+allow thermald socket_device:sock_file { create setattr };
 
 # Talk to qmuxd
 qmux_socket(thermald)

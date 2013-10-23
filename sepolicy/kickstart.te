@@ -44,6 +44,9 @@ allow kickstart self:capability dac_override;
 # Access to the modem bridge chardevs
 allow kickstart kickstart_device:chr_file rw_file_perms;
 
+# OPPO's NV dumper
+allow kickstart opponv_block_device:blk_file { read ioctl open };
+
 # set wake locks
 allow kickstart sysfs:file { append };
 
