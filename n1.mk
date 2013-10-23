@@ -175,7 +175,9 @@ PRODUCT_COPY_FILES += \
 
 # WiFi
 PRODUCT_COPY_FILES += \
-    device/oppo/n1/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat
+    device/oppo/n1/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
+    device/oppo/n1/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    device/oppo/n1/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin
 
 PRODUCT_PACKAGES += \
     wcnss_service \

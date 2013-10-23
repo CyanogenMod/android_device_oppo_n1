@@ -211,18 +211,26 @@ case "$target" in
         echo "*** Use the default WCN driver.                             **"
         setprop wlan.driver.ath 0 
         rm  /system/lib/modules/wlan.ko
-        ln -s /persist/WCNSS_qcom_cfg.ini /vendor/firmware/wlan/prima/WCNSS_qcom_cfg.ini
-        ln -s /persist/WCNSS_qcom_wlan_nv.bin /vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
-        # Populate the writable driver configuration file
-        if [ ! -e /data/misc/wifi/WCNSS_qcom_cfg.ini ]; then
-            if [ -f /persist/WCNSS_qcom_cfg.ini ]; then
-                cp /persist/WCNSS_qcom_cfg.ini /data/misc/wifi/WCNSS_qcom_cfg.ini
-            else
-                cp /system/etc/wifi/WCNSS_qcom_cfg.ini /data/misc/wifi/WCNSS_qcom_cfg.ini
-            fi
+                # Populate the writable driver configuration file
+        # if [ ! -e /data/misc/wifi/WCNSS_qcom_cfg.ini ]; then
+        #    if [ -f /persist/WCNSS_qcom_cfg.ini ]; then
+        #        cp /persist/WCNSS_qcom_cfg.ini /data/misc/wifi/WCNSS_qcom_cfg.ini
+        #    else
+                cp /system/etc/wifi/WCNSS_qcom_cfg.ini /persist/WCNSS_qcom_cfg.ini
+        #    fi
             chown system:wifi /data/misc/wifi/WCNSS_qcom_cfg.ini
             chmod 660 /data/misc/wifi/WCNSS_qcom_cfg.ini
-        fi
+        #fi
+
+        # Populate the NV configuration file
+        #  from factory file in /persist if it exists
+        #  from template file if factory file does not exist
+        # if [ ! -f /persist/WCNSS_qcom_wlan_nv.bin ]; then
+                cp /system/etc/wifi/WCNSS_qcom_wlan_nv.bin /persist/WCNSS_qcom_wlan_nv.bin
+        # fi
+
+        ln -s /persist/WCNSS_qcom_cfg.ini /vendor/firmware/wlan/prima/WCNSS_qcom_cfg.ini
+        ln -s /persist/WCNSS_qcom_wlan_nv.bin /vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 
         # The property below is used in Qcom SDK for softap to determine
         # the wifi driver config file
