@@ -48,6 +48,7 @@ lib/liboemcamera.so
 
 # GPS
 lib/libloc_api_v02.so
+lib/libgeofence.so
 
 # Graphics
 lib/egl/eglsubAndroid.so
