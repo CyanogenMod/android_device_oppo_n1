@@ -38,6 +38,11 @@
         android:title="@string/touchscreen_gestures_title" />
 
     <CheckBoxPreference
+        android:key="touchscreen_gesture_double_tap"
+        android:title="@string/touchscreen_double_tap_gesture_title"
+        android:summary="@string/touchscreen_double_tap_gesture_summary" />
+
+    <CheckBoxPreference
         android:key="touchscreen_gesture_camera"
         android:title="@string/touchscreen_camera_gesture_title"
         android:summary="@string/touchscreen_camera_gesture_summary" />
