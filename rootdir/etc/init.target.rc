@@ -153,23 +153,3 @@ service wcnss-service /system/bin/wcnss_service
     user system
     group system wifi
     oneshot
-
-on property:persist.sys.touchpanel.enable=true
-    write /proc/touchpanel/camera_enable 1
-    write /proc/touchpanel/double_tap_enable 1
-    write /proc/touchpanel/flashlight_enable 1
-    write /proc/touchpanel/glove_mode_enable 1
-    write /proc/touchpanel/music_enable 1
-
-on property:persist.sys.touchpanel.enable=false
-    write /proc/touchpanel/camera_enable 0
-    write /proc/touchpanel/double_tap_enable 0
-    write /proc/touchpanel/flashlight_enable 0
-    write /proc/touchpanel/glove_mode_enable 0
-    write /proc/touchpanel/music_enable 0
-
-on property:persist.sys.gsensor.enable=true
-    write /proc/touchpad/enable 1
-
-on property:persist.sys.gsensor.enable=false
-    write /proc/touchpad/enable 0
