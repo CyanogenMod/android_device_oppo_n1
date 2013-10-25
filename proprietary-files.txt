@@ -47,6 +47,8 @@ lib/libmmstillomx.so
 lib/liboemcamera.so
 
 # GPS
+bin/wiperiface
+bin/wiperiface_v02
 lib/libloc_api_v02.so
 lib/libgeofence.so
 
