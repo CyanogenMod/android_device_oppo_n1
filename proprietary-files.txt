@@ -3,7 +3,6 @@ bin/bridgemgrd
 bin/btnvtool
 bin/ds_fmc_appd
 bin/efsks
-bin/gsiff_daemon
 bin/hci_qcomm_init
 bin/ks
 bin/mm-qcamera-daemon
