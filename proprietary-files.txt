@@ -23,7 +23,7 @@ lib/libaudcal.so
 lib/libcsd-client.so
 
 # Camera
-lib/hw/camera.msm8960.so
+lib/hw/camera.msm8960.so:lib/hw/vendor-camera.msm8960.so
 lib/libgemini.so
 lib/libimage-jpeg-enc-omx-comp.so
 lib/libimage-omx-common.so
