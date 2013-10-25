@@ -83,6 +83,7 @@ pthread_mutex_t LocEngContext::lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t LocEngContext::cond = PTHREAD_COND_INITIALIZER;
 LocEngContext* LocEngContext::me = NULL;
 boolean configAlreadyRead = false;
+unsigned int agpsStatus = 0;
 
 loc_gps_cfg_s_type gps_conf;
 loc_sap_cfg_s_type sap_conf;
@@ -289,11 +290,12 @@ int loc_eng_init(loc_eng_data_s_type &loc_eng_data, LocCallbacks* callbacks,
                   void (*loc_external_msg_sender) (void*, void*))
 
 {
-    int ret_val =-1;
+    int ret_val = 0;
 
     ENTRY_LOG_CALLFLOW();
     if (NULL == callbacks || 0 == event) {
         LOC_LOGE("loc_eng_init: bad parameters cb %p eMask %d", callbacks, event);
+        ret_val = -1;
         EXIT_LOG(%d, ret_val);
         return ret_val;
     }
@@ -347,14 +349,9 @@ int loc_eng_init(loc_eng_data_s_type &loc_eng_data, LocCallbacks* callbacks,
     } else {
         LOC_LOGD("loc_eng_init created client, id = %p\n", loc_eng_data.client_handle);
 
-        // call reinit to send initialization messages
-       int tries = 30;
-       while (tries > 0 &&
-              LOC_API_ADAPTER_ERR_SUCCESS != (ret_val = loc_eng_reinit(loc_eng_data))) {
-           tries--;
-           LOC_LOGD("loc_eng_init client open failed, %d more tries", tries);
-           sleep(1);
-       }
+        /*send reinit event to QMI instead of call reinit directly*/
+        loc_eng_msg *msg(new loc_eng_msg(locEngHandle.owner, LOC_ENG_MSG_LOC_INIT));
+        locEngHandle.sendMsge(locEngHandle.owner, msg);
     }
 
     EXIT_LOG(%d, ret_val);
@@ -430,7 +427,7 @@ static int loc_eng_reinit(loc_eng_data_s_type &loc_eng_data)
         //Send data disable to modem. This will be set to enable when
         //an UPDATE_NETWORK_STATE event is received from Android
         loc_eng_msg_set_data_enable *msg(new loc_eng_msg_set_data_enable(&loc_eng_data, NULL,
-                                                                         0, 0));
+                                                                         0, (agpsStatus ? 1:0)));
         msg_q_snd((void*)((LocEngContext*)(loc_eng_data.context))->deferred_q,
                   msg, loc_eng_free_msg);
     }
@@ -529,7 +526,7 @@ int loc_eng_start(loc_eng_data_s_type &loc_eng_data)
    ENTRY_LOG_CALLFLOW();
    INIT_CHECK(loc_eng_data.context, return -1);
 
-   if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
+   if(loc_eng_data.ulp_initialized == true)
    {
        //Pass the start messgage to ULP if present & activated
        loc_eng_msg *msg(new loc_eng_msg(&loc_eng_data, ULP_MSG_START_FIX));
@@ -587,7 +584,7 @@ int loc_eng_stop(loc_eng_data_s_type &loc_eng_data)
     ENTRY_LOG_CALLFLOW();
     INIT_CHECK(loc_eng_data.context, return -1);
 
-    if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
+    if(loc_eng_data.ulp_initialized == true)
     {
         //Pass the start messgage to ULP if present & activated
         loc_eng_msg *msg(new loc_eng_msg(&loc_eng_data, ULP_MSG_STOP_FIX));
@@ -1242,6 +1239,14 @@ void loc_eng_agps_ril_update_network_availability(loc_eng_data_s_type &loc_eng_d
                                                   int available, const char* apn)
 {
     ENTRY_LOG_CALLFLOW();
+
+    //This is to store the status of data availability over the network.
+    //If GPS is not enabled, the INIT_CHECK will fail and the modem will
+    //not be updated with the network's availability. Since the data status
+    //can change before GPS is enabled the, storing the status will enable
+    //us to inform the modem after GPS is enabled
+    agpsStatus = available;
+
     INIT_CHECK(loc_eng_data.context, return);
     if (apn != NULL)
     {
@@ -1618,7 +1623,10 @@ static void loc_eng_deferred_action_thread(void* arg)
 
                 if (loc_eng_data_p->generateNmea && rpMsg->location.position_source == ULP_LOCATION_IS_FROM_GNSS)
                 {
-                    loc_eng_nmea_generate_pos(loc_eng_data_p, rpMsg->location, rpMsg->locationExtended);
+                    unsigned char generate_nmea = reported && (rpMsg->status != LOC_SESS_FAILURE);
+                    loc_eng_nmea_generate_pos(loc_eng_data_p, rpMsg->location,
+                                              rpMsg->locationExtended,
+                                              generate_nmea);
                 }
 
                 // Free the allocated memory for rawData
@@ -1929,7 +1937,13 @@ static void loc_eng_deferred_action_thread(void* arg)
             }
             else
                 LOC_LOGE("Ulp Phone context request call back not initialized");
-            }
+        }
+        break;
+
+        case LOC_ENG_MSG_LOC_INIT:
+        {
+            loc_eng_reinit(*loc_eng_data_p);
+        }
         break;
 
         default:
@@ -2022,7 +2036,7 @@ bool loc_eng_inject_raw_command(loc_eng_data_s_type &loc_eng_data,
     LOC_LOGD("loc_eng_send_extra_command: %s\n", command);
     ret_val = TRUE;
 
-    if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
+    if(loc_eng_data.ulp_initialized == true)
     {
         ulp_msg_inject_raw_command *msg(
             new ulp_msg_inject_raw_command(&loc_eng_data,command, length));
@@ -2061,7 +2075,7 @@ int loc_eng_update_criteria(loc_eng_data_s_type &loc_eng_data,
     INIT_CHECK(loc_eng_data.context, return -1);
     int ret_val;
 
-    if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
+    if(loc_eng_data.ulp_initialized == true)
     {
        LOC_LOGD("SJ:loc_eng_update_criteria: valid 0x%x action:%d, minTime:%ld, minDistance:%f, singleShot:%d, horizontalAccuracy:%d, powerRequirement:%d \n",
          criteria.valid_mask, criteria.action, criteria.min_interval, criteria.min_distance,  criteria.recurrence_type,  criteria.preferred_horizontal_accuracy,
@@ -2110,7 +2124,7 @@ int loc_eng_ulp_phone_context_settings_update(loc_eng_data_s_type &loc_eng_data,
              settings->is_wifi_setting_enabled, settings->is_agps_enabled,
              settings->is_enh_location_services_enabled );
 
-    if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
+    if(loc_eng_data.ulp_initialized == true)
     {
         ulp_msg_inject_phone_context_settings *msg
          (new ulp_msg_inject_phone_context_settings(&loc_eng_data, *settings));
@@ -2211,7 +2225,7 @@ int loc_eng_ulp_send_network_position(loc_eng_data_s_type &loc_eng_data,
 {
     ENTRY_LOG();
     int ret_val = 0;
-    if((loc_eng_data.ulp_initialized == true) && (gps_conf.CAPABILITIES & ULP_CAPABILITY))
+    if(loc_eng_data.ulp_initialized == true)
     {
      ulp_msg_inject_network_position *msg
          (new ulp_msg_inject_network_position(&loc_eng_data, *position_report));
