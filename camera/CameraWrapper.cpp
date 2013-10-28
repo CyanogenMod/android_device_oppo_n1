@@ -106,7 +106,7 @@ static char * camera_fixup_getparams(int id, const char * settings)
     }
 
     /* Set supported scene modes */
-    if (!videoMode) {
+    if (params.get(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES)) {
         params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES,
                 "auto,asd,hdr,portrait,landscape,indoor,mix-illuminant,night,sports,macro");
     }
