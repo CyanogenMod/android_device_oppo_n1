@@ -149,12 +149,18 @@ static char * camera_fixup_setparams(int id, const char * settings)
     /* De-purpleate */
     params.set("reduce-purple", "on");
 
-    /* Set auto scene detection if needed */
     if (!videoMode) {
+        /* Set auto scene detection if needed */
         sceneMode = params.get(android::CameraParameters::KEY_SCENE_MODE);
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_ASD)) {
             params.set(android::CameraParameters::KEY_SCENE_DETECT,
                     android::CameraParameters::SCENE_DETECT_ON);
+        }
+
+        /* Disable flash if HDR is enabled */
+        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
+            params.set(android::CameraParameters::KEY_FLASH_MODE,
+                    android::CameraParameters::FLASH_MODE_OFF);
         }
     }
 
