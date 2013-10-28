@@ -130,7 +130,7 @@ static char * camera_fixup_getparams(int id, const char * settings)
     return ret;
 }
 
-char * camera_fixup_setparams(int id, const char * settings)
+static char * camera_fixup_setparams(int id, const char * settings)
 {
     int previewW, previewH;
     bool videoMode = false;
