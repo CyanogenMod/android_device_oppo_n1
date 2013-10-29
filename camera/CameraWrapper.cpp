@@ -135,6 +135,7 @@ static char * camera_fixup_setparams(int id, const char * settings)
     int previewW, previewH;
     bool videoMode = false;
     const char *sceneMode = "auto";
+    const char *videoHdr = "off";
 
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
@@ -146,21 +147,35 @@ static char * camera_fixup_setparams(int id, const char * settings)
         videoMode = (!strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), "true"));
     }
 
+    if (params.get(android::CameraParameters::KEY_SCENE_MODE)) {
+        sceneMode = params.get(android::CameraParameters::KEY_SCENE_MODE);
+    }
+
+    if (params.get("video-hdr")) {
+        videoHdr = params.get("video-hdr");
+    }
+
     /* De-purpleate */
     params.set("reduce-purple", "on");
 
+    /* Disable flash if HDR is enabled */
     if (!videoMode) {
-        /* Set auto scene detection if needed */
-        sceneMode = params.get(android::CameraParameters::KEY_SCENE_MODE);
-        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_ASD)) {
-            params.set(android::CameraParameters::KEY_SCENE_DETECT,
-                    android::CameraParameters::SCENE_DETECT_ON);
-        }
-
-        /* Disable flash if HDR is enabled */
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
+        }
+    } else {
+        if (!strcmp(videoHdr, "on")) {
+            params.set(android::CameraParameters::KEY_FLASH_MODE,
+                    android::CameraParameters::FLASH_MODE_OFF);
+        }
+    }
+
+    /* Set auto scene detection if needed */
+    if (!videoMode) {
+        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_ASD)) {
+            params.set(android::CameraParameters::KEY_SCENE_DETECT,
+                    android::CameraParameters::SCENE_DETECT_ON);
         }
     }
 
