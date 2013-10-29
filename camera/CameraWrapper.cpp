@@ -133,6 +133,7 @@ static char * camera_fixup_getparams(int id, const char * settings)
 static char * camera_fixup_setparams(int id, const char * settings)
 {
     int previewW, previewH;
+    int faceBeautify = 0;
     bool videoMode = false;
     const char *sceneMode = "auto";
     const char *videoHdr = "off";
@@ -155,6 +156,10 @@ static char * camera_fixup_setparams(int id, const char * settings)
         videoHdr = params.get("video-hdr");
     }
 
+    if (params.get("face-beautify")) {
+        faceBeautify = atoi(params.get("face-beautify"));
+    }
+
     /* De-purpleate */
     params.set("reduce-purple", "on");
 
@@ -168,6 +173,16 @@ static char * camera_fixup_setparams(int id, const char * settings)
         if (!strcmp(videoHdr, "on")) {
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
+        }
+    }
+
+    /* Disable slow-shutter if HDR or beauty is enabled */
+    if (!videoMode) {
+        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
+            params.set("slow-shutter", "slow-shutter-off");
+        }
+        if (faceBeautify > 0) {
+            params.set("slow-shutter", "slow-shutter-off");
         }
     }
 
