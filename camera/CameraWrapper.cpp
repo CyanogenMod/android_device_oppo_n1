@@ -98,7 +98,7 @@ static char * camera_fixup_getparams(int id, const char * settings)
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
 
-    ALOGI("%s: original parameters:", __func__);
+    ALOGV("%s: original parameters:", __func__);
     params.dump();
 
     if (params.get(android::CameraParameters::KEY_RECORDING_HINT)) {
@@ -121,7 +121,7 @@ static char * camera_fixup_getparams(int id, const char * settings)
                 android::CameraParameters::ISO_AUTO);
     }
 
-    ALOGI("%s: fixed parameters:", __func__);
+    ALOGV("%s: fixed parameters:", __func__);
     params.dump();
 
     android::String8 strParams = params.flatten();
