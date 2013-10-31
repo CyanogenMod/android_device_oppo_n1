@@ -125,7 +125,11 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Recovery
-TARGET_RECOVERY_FSTAB := device/oppo/n1/rootdir/etc/fstab.qcom
+ifeq ($(WITH_SIMPLE_RECOVERY),true)
+    TARGET_RECOVERY_FSTAB := device/oppo/n1/recovery.fstab
+else
+    TARGET_RECOVERY_FSTAB := device/oppo/n1/rootdir/etc/fstab.qcom
+endif
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
