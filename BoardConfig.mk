@@ -90,7 +90,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 TARGET_USES_CM_POWERHAL := true
 
 # Tuning
-#BOARD_HARDWARE_CLASS := device/oppo/n1/cmhw
+BOARD_HARDWARE_CLASS := device/oppo/n1/cmhw
 
 # Webkit
 ENABLE_WEBGL := true
