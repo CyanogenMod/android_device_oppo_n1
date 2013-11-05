@@ -43,12 +43,15 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     public boolean handleKeyEvent(KeyEvent event) {
-        if (event.getAction() != KeyEvent.ACTION_UP) {
+        if (event.getAction() != KeyEvent.ACTION_UP && event.getScanCode() != FLIP_CAMERA_SCANCODE) {
             return false;
         }
         boolean consumed = false;
         switch(event.getScanCode()) {
         case FLIP_CAMERA_SCANCODE:
+            if (event.getAction() == KeyEvent.ACTION_UP) {
+                break;
+            }
         case GESTURE_CIRCLE_SCANCODE:
             wakeUpDismissKeyguard();
             Intent intent = new Intent(Intent.ACTION_CAMERA_BUTTON, null);
