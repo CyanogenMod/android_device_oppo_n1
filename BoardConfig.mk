@@ -89,6 +89,10 @@ TARGET_PROVIDES_LIBLIGHT := true
 # Power
 TARGET_USES_CM_POWERHAL := true
 
+# Radio
+BOARD_PROVIDES_LIBRIL := true
+BOARD_RIL_NO_CELLINFOLIST := true
+
 # Tuning
 BOARD_HARDWARE_CLASS := device/oppo/n1/cmhw
 
@@ -172,9 +176,6 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_MAX_PARTITIONS := 36
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/oppo/n1
-
-# Workaround for MR1 RIL
-BOARD_RIL_NO_CELLINFOLIST := true
 
 # inherit from the proprietary version
 -include vendor/oppo/n1/BoardConfigVendor.mk
