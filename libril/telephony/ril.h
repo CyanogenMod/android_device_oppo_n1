@@ -3850,6 +3850,23 @@ typedef struct {
 #else
 #define RIL_REQUEST_GET_DATA_SUBSCRIPTION 121
 #endif
+
+/* Oppo extra request */
+/**
+ * RIL_REQUEST_FACTORY_MODE_NV_PROCESS
+ *
+ * Request to radio to get NV parameters.
+ *
+ * "data" is integer
+ *
+ * "response is NULL
+ *
+ * Valid errors:
+ *  SUCCESS
+ *  RADIO_NOT_AVAILABLE
+ *  GENERIC_FAILURE
+ */
+#define RIL_REQUEST_FACTORY_MODE_NV_PROCESS 123
 /***********************************************************************/
 
 
