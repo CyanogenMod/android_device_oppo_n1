@@ -136,7 +136,6 @@ static char * camera_fixup_setparams(int id, const char * settings)
     int faceBeautify = 0;
     bool videoMode = false;
     const char *sceneMode = "auto";
-    const char *videoHdr = "off";
 
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
@@ -152,10 +151,6 @@ static char * camera_fixup_setparams(int id, const char * settings)
         sceneMode = params.get(android::CameraParameters::KEY_SCENE_MODE);
     }
 
-    if (params.get("video-hdr")) {
-        videoHdr = params.get("video-hdr");
-    }
-
     if (params.get("face-beautify")) {
         faceBeautify = atoi(params.get("face-beautify"));
     }
@@ -166,11 +161,6 @@ static char * camera_fixup_setparams(int id, const char * settings)
     /* Disable flash if HDR is enabled */
     if (!videoMode) {
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
-            params.set(android::CameraParameters::KEY_FLASH_MODE,
-                    android::CameraParameters::FLASH_MODE_OFF);
-        }
-    } else {
-        if (!strcmp(videoHdr, "on")) {
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
         }
