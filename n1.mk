@@ -43,7 +43,8 @@ PRODUCT_PACKAGES += \
     init.qcom.sensor.sh \
     init.qcom.thermal_conf.sh \
     init.qcom.usb.sh \
-    init.qcom.wifi.sh
+    init.qcom.wifi.sh \
+    init.recovery.qcom.rc
 
 # Ramdisk
 PRODUCT_PACKAGES += \
