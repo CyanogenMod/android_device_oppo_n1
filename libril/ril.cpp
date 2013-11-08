@@ -874,6 +874,8 @@ dispatchRaw(Parcel &p, RequestInfo *pRI) {
     int32_t len;
     status_t status;
     const void *data;
+    uint8_t *ptr;
+    uint32_t header;
 
     status = p.readInt32(&len);
 
@@ -888,6 +890,19 @@ dispatchRaw(Parcel &p, RequestInfo *pRI) {
     }
 
     data = p.readInplace(len);
+
+    /* Handle rewriting RAW OEM request to Oppo NV PROCESS request */
+    if (len > 4) {
+        ptr = (uint8_t *) data;
+        header = *((uint32_t *) ptr);
+        /* Magic header set by the NvProcess app */
+        if (header == 0x44332211) {
+            RLOGI("%s: Rewriting to FACTORY_MODE_NV_PROCESS request", __func__);
+            data = ptr + 4;
+            len = 2;
+            pRI->pCI->requestNumber = RIL_REQUEST_FACTORY_MODE_NV_PROCESS;
+        }
+    }
 
     startRequest;
     appendPrintBuf("%sraw_size=%d", printBuf, len);
