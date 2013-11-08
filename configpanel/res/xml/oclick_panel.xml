@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="oclick_connect"
+        android:title="Connect to oclick" />
+
+    <PreferenceCategory
+        android:key="oclick_pref_category"
+        android:enabled="false"
+        android:title="Configuration">
+
+	    <CheckBoxPreference
+                android:defaultValue="true"
+		android:key="oclick_take_snapshot"
+		android:title="Single click to take picture" />
+
+	    <CheckBoxPreference
+                android:defaultValue="true"
+		android:key="oclick_find_my_phone"
+		android:title="Double click to find phone" />
+
+	    <CheckBoxPreference
+                android:defaultValue="true"
+		android:key="oclick_fence"
+		android:title="Alert when outside of fence range" />
+
+	    <CheckBoxPreference
+                android:defaultValue="true"
+		android:key="oclick_disconnect_alert"
+		android:title="Alert when device is outside reach of oclick" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

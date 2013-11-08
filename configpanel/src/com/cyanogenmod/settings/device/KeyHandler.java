@@ -1,4 +1,4 @@
-package com.cyanogenmod.n1.configuration;
+package com.cyanogenmod.settings.device;
 
 import android.app.ActivityManagerNative;
 import android.content.Context;

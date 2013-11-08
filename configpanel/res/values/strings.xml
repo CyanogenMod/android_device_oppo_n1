@@ -20,4 +20,12 @@
     <string name="touchscreen_flashlight_gesture_title">Flashlight gesture</string>
     <string name="touchscreen_flashlight_gesture_summary">Draw V to toggle flashlight</string>
 
+    <string name="oclick_panel_title">O-click settings</string>
+    <string name="oclick_panel_summary">Configure o-click device</string>
+
+    <string name="screen_gestures_panel_title">Screen gestures</string>
+    <string name="screen_gestures_panel_summary">Configure touch panel gestures</string>
+
+    <string name="backpad_panel_title">Backtouch settings</string>
+    <string name="backpad_panel_summary">Configure the back touchpad</string>
 </resources>
