@@ -78,6 +78,7 @@ etc/firmware/vidc_1080p.fw
 # Media
 lib/libI420colorconvert.so
 lib/libmm-color-convertor.so
+lib/libExtendedExtractor.so
 
 # NFC
 etc/firmware/libpn544_fw.so:vendor/firmware/libpn544_fw.so
