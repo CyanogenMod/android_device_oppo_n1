@@ -42,6 +42,7 @@ service ril-qmi /system/bin/sh /init.qcom.ril.sh
 
 on fs
     mount_all fstab.qcom
+    restorecon -r /persist
 
 on boot
    write /sys/devices/i2c-3/3-0024/cyttsp_update_fw 1
