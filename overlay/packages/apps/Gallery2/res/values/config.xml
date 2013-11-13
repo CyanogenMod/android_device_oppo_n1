@@ -20,5 +20,4 @@
 <resources>
     <bool name="needsEarlyVideoSize">true</bool>
     <bool name="enableVideoHDR">true</bool>
-    <bool name="faceScoreIsError">true</bool>
 </resources>
