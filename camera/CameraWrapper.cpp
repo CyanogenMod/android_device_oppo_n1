@@ -123,6 +123,13 @@ static char * camera_fixup_getparams(int id, const char * settings)
                 android::CameraParameters::ISO_AUTO);
     }
 
+    /* Disable AEC and AWB lock, pictures are terrible */
+    params.set(android::CameraParameters::KEY_AUTO_EXPOSURE_LOCK_SUPPORTED, "false");
+    params.set(android::CameraParameters::KEY_AUTO_WHITEBALANCE_LOCK_SUPPORTED, "false");
+
+    /* Reduce purple */
+    params.set("reduce-purple", "on");
+
     ALOGV("%s: fixed parameters:", __func__);
 #if !LOG_NDEBUG
     params.dump();
