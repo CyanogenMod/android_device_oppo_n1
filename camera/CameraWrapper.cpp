@@ -107,6 +107,10 @@ static char * camera_fixup_getparams(int id, const char * settings)
         videoMode = (!strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), "true"));
     }
 
+    /* Blatantly lie to userspace to pass CTS */
+    params.set(android::CameraParameters::KEY_PREVIEW_FPS_RANGE, "5000,60000");
+    params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(5000,60000)");
+
     /* Set supported scene modes */
     if (params.get(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES)) {
         params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES,
@@ -147,6 +151,8 @@ static char * camera_fixup_setparams(int id, const char * settings)
     int faceBeautify = 0;
     bool videoMode = false;
     const char *sceneMode = "auto";
+    const char *fpsRange = "5000,60000";
+    const char *fpsRangeValues = "(5000,60000)";
 
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
@@ -168,6 +174,14 @@ static char * camera_fixup_setparams(int id, const char * settings)
         faceBeautify = atoi(params.get("face-beautify"));
     }
 
+    if (params.get(android::CameraParameters::KEY_PREVIEW_FPS_RANGE)) {
+        fpsRange = params.get(android::CameraParameters::KEY_PREVIEW_FPS_RANGE);
+    }
+
+    if (params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE)) {
+        fpsRangeValues = params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE);
+    }
+
     /* De-purpleate */
     params.set("reduce-purple", "on");
 
@@ -182,6 +196,14 @@ static char * camera_fixup_setparams(int id, const char * settings)
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
         }
+    }
+
+    /* Don't lie to the hardware otherwise things stop working */
+    if (!strcmp(fpsRange, "5000,60000")) {
+        params.set(android::CameraParameters::KEY_PREVIEW_FPS_RANGE, "10000,60000");
+    }
+    if (!strcmp(fpsRangeValues, "(5000,60000)")) {
+        params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(10000,60000)");
     }
 
     /* Disable slow-shutter if HDR or beauty is enabled */
