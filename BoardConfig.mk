@@ -144,6 +144,7 @@ BOARD_RECOVERY_SWIPE := true
 BOARD_SEPOLICY_DIRS += device/oppo/n1/sepolicy
 BOARD_SEPOLICY_UNION += \
     file_contexts \
+    genfs_contexts \
     property_contexts \
     te_macros \
     bluetooth_loader.te \

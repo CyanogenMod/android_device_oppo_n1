@@ -23,3 +23,9 @@ type persist_wifi_file, file_type;
 
 # Init shell scripts
 type init_shell_script, fs_type;
+
+# Mpdecision control files
+type mpdecision_data_file, file_type;
+
+# Input control files
+type input_proc, file_type;

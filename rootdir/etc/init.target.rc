@@ -42,7 +42,15 @@ service ril-qmi /system/bin/sh /init.qcom.ril.sh
 
 on fs
     mount_all fstab.qcom
-    restorecon -r /persist
+    restorecon -R /persist
+    restorecon -R /proc/touchpad
+    restorecon -R /proc/touchpanel
+    restorecon -R /sys/devices/system/cpu/cpu0/cpufreq
+    restorecon -R /sys/devices/system/cpu/cpu1/cpufreq
+    restorecon -R /sys/devices/system/cpu/cpu2/cpufreq
+    restorecon -R /sys/devices/system/cpu/cpu3/cpufreq
+    restorecon /sys/kernel/mm/ksm/run
+    restorecon /sys/devices/virtual/graphics/fb0/cabc
 
 on boot
    write /sys/devices/i2c-3/3-0024/cyttsp_update_fw 1

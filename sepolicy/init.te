@@ -1,4 +1,3 @@
-allow init wpa_socket:unix_dgram_socket { bind create };
 
 allow init labeledfs:filesystem { associate };
 allow init rootfs:filesystem { associate };
@@ -26,13 +25,18 @@ allow init_shell alarm_device:chr_file { write };
 
 # Sensors
 allow init_shell sensors_data_file:dir { getattr setattr };
-allow init_shell sensors_data_file:file { write getattr setattr };
+allow init_shell sensors_data_file:file { write getattr setattr write };
 allow init_shell sensors_device:chr_file getattr;
+allow init_shell persist_sensors_file:file { write setattr };
 
 # Wifi
 allow init_shell wifi_data_file:file getattr;
-allow init_shell persist_wifi_file:file { read getattr open };
-allow init_shell system_data_file:file { write open };
+allow init_shell persist_wifi_file:file { read getattr open write };
+allow init wpa_socket:unix_dgram_socket { bind create };
+
+# Misc boot fixup
+allow init_shell system_data_file:file { setattr write open };
+allow init_shell system_data_file:dir { setattr };
 
 # Bluetooth
 allow init_shell hci_attach_dev:chr_file { read write ioctl open };
@@ -41,6 +45,7 @@ allow init_shell persist_file:file { getattr };
 
 # Allow writing to sysfs and proc nodes
 allow init_shell sysfs:file { write setattr };
+allow init_shell sysfs:dir { setattr };
 allow init_shell proc:file write;
 
 allow init_shell tmpfs:chr_file { read write getattr ioctl };

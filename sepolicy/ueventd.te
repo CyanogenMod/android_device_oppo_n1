@@ -1,3 +1,6 @@
 # Drivers read firmware files (/firmware/image, /vendor/firmware/wlan/prima)
 allow ueventd { persist_file persist_wifi_file radio_efs_file wifi_data_file }:file r_file_perms;
 allow ueventd { persist_file persist_wifi_file radio_efs_file wifi_data_file }:dir search;
+allow ueventd radio_efs_file:lnk_file read;
+allow ueventd wifi_data_file:lnk_file read;
+
