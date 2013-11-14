@@ -171,6 +171,11 @@ static char * camera_fixup_setparams(int id, const char * settings)
     /* De-purpleate */
     params.set("reduce-purple", "on");
 
+    /* Set magic Oppo parameter */
+    if (videoMode) {
+        params.set("oppo-app", "1");
+    }
+
     /* Disable flash if HDR is enabled */
     if (!videoMode) {
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
