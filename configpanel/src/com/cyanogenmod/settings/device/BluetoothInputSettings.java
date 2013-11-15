@@ -22,6 +22,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.cyanogenmod.settings.device.utils.Constants;
@@ -76,6 +77,18 @@ public class BluetoothInputSettings extends PreferenceActivity implements OnPref
         addPreferencesFromResource(R.xml.oclick_panel);
         mReceiver = new EventReceiver();
         setConnectedState(OclickService.isConnectedToOclick);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        // Respond to the action bar's Up/Home button
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private boolean isBluetoothOn() {

@@ -1,15 +1,24 @@
 package com.cyanogenmod.settings.device.utils;
 
 
+import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.text.TextUtils;
+import android.view.MenuItem;
 
 import com.cyanogenmod.n1.configuration.FileUtils;
 
 public class NodePreferenceActivity extends PreferenceActivity implements OnPreferenceChangeListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -35,5 +44,16 @@ public class NodePreferenceActivity extends PreferenceActivity implements OnPref
             String curNodeValue = FileUtils.readOneLine(node);
             b.setChecked(curNodeValue.equals("1"));
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        // Respond to the action bar's Up/Home button
+        case android.R.id.home:
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
