@@ -9,7 +9,6 @@ import android.content.Intent;
 public class BluetoothReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        System.out.println("Receiver : " + intent.getAction());
         String action = intent.getAction();
         if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED)
                 || action.equals(BluetoothDevicePicker.ACTION_DEVICE_SELECTED)) {

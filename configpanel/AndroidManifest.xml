@@ -20,7 +20,7 @@
         <activity android:name=".KeyHandler"/>
 
         <service android:name=".OclickService" />
-	<activity android:name=".BluetoothInputSettings" android:icon="@drawable/app_icon"
+	<activity android:launchMode="singleTop" android:name=".BluetoothInputSettings" android:icon="@drawable/app_icon"
             android:label="@string/oclick_panel_title">
 	  <intent-filter>
                 <action android:name="com.cyanogenmod.action.LAUNCH_BLUETOOTH_INPUT_SETTINGS" />

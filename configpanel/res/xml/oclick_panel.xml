@@ -3,32 +3,43 @@
 
     <Preference
         android:key="oclick_connect"
-        android:title="Connect to oclick" />
+        android:title="Connect to O-Click" />
 
     <PreferenceCategory
-        android:key="oclick_pref_category"
+        android:key="oclick_action_category"
         android:enabled="false"
-        android:title="Configuration">
+        android:title="Actions">
 
 	    <CheckBoxPreference
                 android:defaultValue="true"
 		android:key="oclick_take_snapshot"
-		android:title="Single click to take picture" />
+		android:title="Remote camera shutter"
+                android:summary="Single click to take picture" />
 
 	    <CheckBoxPreference
                 android:defaultValue="true"
 		android:key="oclick_find_my_phone"
-		android:title="Double click to find phone" />
+		android:title="Phone locator"
+                android:summary="Double click to find phone" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="oclick_alert_category"
+        android:enabled="false"
+        android:title="Alerts">
 
 	    <CheckBoxPreference
                 android:defaultValue="true"
 		android:key="oclick_fence"
-		android:title="Alert when outside of fence range" />
+		android:title="Proximity alert"
+                android:summary="Alert when not near phone"  />
 
 	    <CheckBoxPreference
                 android:defaultValue="true"
 		android:key="oclick_disconnect_alert"
-		android:title="Alert when device is outside reach of oclick" />
+		android:title="Out of range alert"
+                android:summary="Alert when device is outside reach of O-Click" />
 
     </PreferenceCategory>
 

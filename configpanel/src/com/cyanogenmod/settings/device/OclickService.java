@@ -3,6 +3,9 @@ package com.cyanogenmod.settings.device;
 import java.util.Set;
 import java.util.UUID;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -10,7 +13,10 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.hardware.input.InputManager;
@@ -31,13 +37,6 @@ import com.cyanogenmod.settings.device.utils.Constants;
 public class OclickService extends Service implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = OclickService.class.getSimpleName();
-
-    private BluetoothGatt mBluetoothGatt;
-    private Handler mHandler;
-    boolean mAlerting;
-
-    private BluetoothDevice mOClickDevice;
-
     private static final UUID sTriggerServiceUUID = UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb");
     private static final UUID sTriggerCharacteristicUUIDv1 = UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb");
     private static final UUID sTriggerCharacteristicUUIDv2 = UUID.fromString("f000ffe1-0451-4000-b000-000000000000");
@@ -48,9 +47,19 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
     private static final UUID sLinkLossServiceUUID = UUID.fromString("00001803-0000-1000-8000-00805f9b34fb"); // 0-3
     private static final UUID sLinkLossCharacteristicUUID = UUID.fromString("00002a06-0000-1000-8000-00805f9b34fb");
 
-    private static final UUID sControllCharacteristicUUIDv1 = UUID.fromString("0000aa01-0000-1000-8000-00805f9b34fb");
-    private static final UUID sControllCharacteristicUUIDv2 = UUID.fromString("f000ffe2-0451-4000-b000-000000000000");
-    
+    //    private static final UUID sControllCharacteristicUUIDv1 = UUID.fromString("0000aa01-0000-1000-8000-00805f9b34fb");
+    //    private static final UUID sControllCharacteristicUUIDv2 = UUID.fromString("f000ffe2-0451-4000-b000-000000000000");
+
+    public static final String CANCEL_ALERT_PHONE = "cancel_alert_phone";
+
+    private BluetoothGatt mBluetoothGatt;
+    private Handler mHandler;
+    boolean mAlerting;
+    private Handler mRssiPoll = new Handler();
+    private BluetoothDevice mOClickDevice;
+
+    public static boolean isConnectedToOclick = false;
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -63,34 +72,33 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
         sendBroadcast(i);
     }
 
-    Handler mRssiPoll = new Handler();
-    BluetoothGattCharacteristic mChar;
-    private BluetoothGattCallback mGattCallback =
-            new BluetoothGattCallback() {
+    private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, final int newState) {
             Log.d(TAG, "onConnectionStateChange " + status + " " + newState);
             if (newState == BluetoothGatt.STATE_CONNECTED) {
                 mBluetoothGatt = gatt;
-                if (mBluetoothGatt.getServices().size() == 0)
+                isConnectedToOclick = true;
                 gatt.discoverServices();
+            } else if (newState == BluetoothGatt.STATE_DISCONNECTED) {
+                isConnectedToOclick = false;
+                stopSelf();
             }
             sendCommand(newState);
         }
 
         @Override
         public void onServicesDiscovered(final BluetoothGatt gatt, int status) {
-
             Log.d(TAG, "onServicesDiscovered " + status);
 
-            // Register trigger notification
+            // Register trigger notification (Used for camera/alarm)
             BluetoothGattService service = gatt.getService(sTriggerServiceUUID);
             BluetoothGattCharacteristic trigger = service.getCharacteristic(sTriggerCharacteristicUUIDv1);
-            
+
             if (trigger == null) {
                 trigger = service.getCharacteristic(sTriggerCharacteristicUUIDv2);
             }
-            mChar = trigger;
             gatt.setCharacteristicNotification(trigger, true);
 
             toggleRssiListener();
@@ -126,21 +134,41 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             Log.d(TAG, "Characteristic changed " + characteristic.getUuid());
+
             if (mTapPending) {
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                if (mRingtone.isPlaying()) {
+                    Log.d(TAG, "Stopping ring alarm");
+                    mRingtone.stop();
+                    notificationManager.cancel(0);
+                    return;
+                }
+
                 Log.d(TAG, "Executing ring alarm");
+
+                mRingtone.play();
                 mHandler.removeCallbacks(mSingleTapRunnable);
-                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                r.play();
+
+                Notification.Builder builder = new Notification.Builder(OclickService.this);
+                builder.setSmallIcon(R.drawable.locator_icon);
+                builder.setContentTitle("O-Click phone locator");
+                builder.setContentText("Locator alert is playing. Tap to dismiss");
+                builder.setAutoCancel(true);
+
+                PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, new Intent(CANCEL_ALERT_PHONE), 0);
+                builder.setContentIntent(resultPendingIntent);
+                notificationManager.notify(0, builder.build());
+
                 mTapPending = false;
                 return;
             }
             Log.d(TAG, "Setting single tap runnable");
             mTapPending = true;
-            mHandler.postDelayed(mSingleTapRunnable, 1000);
+            mHandler.postDelayed(mSingleTapRunnable, 1500);
         }
 
-        
+
         @Override
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
             Log.d(TAG, "Rssi value : " + rssi);
@@ -171,28 +199,15 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
             InputManager im = InputManager.getInstance();
             im.injectInputEvent(new KeyEvent(now, now, KeyEvent.ACTION_DOWN,
                     KeyEvent.KEYCODE_CAMERA, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0,
-                    InputDevice.SOURCE_KEYBOARD), InputManager.INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH);
+                    InputDevice.SOURCE_KEYBOARD), InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
             im.injectInputEvent(new KeyEvent(now, now, KeyEvent.ACTION_UP,KeyEvent.KEYCODE_CAMERA,
                     0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0, 0, InputDevice.SOURCE_KEYBOARD),
-                    InputManager.INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH);
+                    InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
             mTapPending = false;
 
         }
     };
-
-    static BluetoothDevice getPairedOclick(BluetoothAdapter adapter) {
-        Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
-        // If there are paired devices
-        if (pairedDevices.size() > 0) {
-            for (BluetoothDevice pairedDevice : pairedDevices) {
-                if (pairedDevice.getBondState() == BluetoothDevice.BOND_BONDED
-                        && pairedDevice.getName().toLowerCase().contains("oppo")) {
-                    return pairedDevice;
-                }
-            }
-        }
-        return null;
-    }
+    private Ringtone mRingtone;
 
     private void toggleRssiListener() {
         boolean fence = Constants.isPreferenceEnabled(getBaseContext(), Constants.OCLICK_FENCE_KEY, true);
@@ -213,7 +228,24 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
     public void onCreate() {
         mHandler = new Handler();
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(CANCEL_ALERT_PHONE);
+        registerReceiver(mReceiver, filter);
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        mRingtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
     }
+
+    AlarmCancel mReceiver = new AlarmCancel();
+    class AlarmCancel extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(CANCEL_ALERT_PHONE)) {
+                if (mRingtone.isPlaying()) {
+                    mRingtone.stop();
+                }
+            }
+        }
+    };
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
@@ -233,7 +265,7 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onstartCommand " + intent.getAction());
+        Log.d(TAG, "onstartCommand");
         if (mBluetoothGatt == null) {
             mOClickDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             if (mOClickDevice == null) {
@@ -252,5 +284,6 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
         mBluetoothGatt.disconnect();
         mBluetoothGatt.close();
         PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+        unregisterReceiver(mReceiver);
     }
 }
