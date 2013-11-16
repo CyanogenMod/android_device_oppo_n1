@@ -192,7 +192,7 @@ static char * camera_fixup_setparams(int id, const char * settings)
                     android::CameraParameters::FLASH_MODE_OFF);
         }
 
-        if (strcmp("slow-shutter", "slow-shutter-off")) {
+        if (strcmp(params.get("slow-shutter"), "slow-shutter-off")) {
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
         }
