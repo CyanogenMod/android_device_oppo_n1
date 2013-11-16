@@ -31,4 +31,16 @@
     <string name="oclick_connect_string">Připojit</string>
     <string name="oclick_disconnect_string">Odpojit</string>
     <string name="oclick_dialog_connecting_message">Pokus o zpárování</string>
+
+    <string name="oclick_take_snapshot_title">Dálková spoušť fotoaparátu</string>
+    <string name="oclick_take_snapshot_summary">Jedním dotykem pořídíte fotografii</string>
+    <string name="oclick_find_my_phone_title">Poloha telefonu</string>
+    <string name="oclick_find_my_phone_summary">Dvojitým dotykem zjistíte polohu telefonu</string>
+    <string name="oclick_fence_title">Upozornění při vzdálení</string>
+    <string name="oclick_fence_summary">Upozornit, pokud není telefon v blízkosti</string>
+    <string name="oclick_disconnect_alert_title">Upozornění, pokud mimo dosah</string>
+    <string name="oclick_disconnect_alert_summary">Upozornit, pokud je telefon mimo dosah</string>
+
+    <string name="alert_category_title">Upozornění</string>
+    <string name="action_category_title">Akce</string>
 </resources>
