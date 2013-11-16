@@ -35,4 +35,16 @@
     <string name="oclick_disconnect_string">Disconnect</string>
     <string name="oclick_dialog_title">O-Click</string>
     <string name="oclick_dialog_connecting_message">Attempting to pair</string>
+
+    <string name="oclick_take_snapshot_title">Remote camera shutter</string>
+    <string name="oclick_take_snapshot_summary">Single click to take picture</string>
+    <string name="oclick_find_my_phone_title">Phone locator</string>
+    <string name="oclick_find_my_phone_summary">Double click to find phone</string>
+    <string name="oclick_fence_title">Proximity alert</string>
+    <string name="oclick_fence_summary">Alert when not near phone</string>
+    <string name="oclick_disconnect_alert_title">Out of range alert</string>
+    <string name="oclick_disconnect_alert_summary">Alert when outside of reach</string>
+
+    <string name="alert_category_title">Alerts</string>
+    <string name="action_category_title">Actions</string>
 </resources>
