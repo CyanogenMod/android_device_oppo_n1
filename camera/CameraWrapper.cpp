@@ -107,10 +107,6 @@ static char * camera_fixup_getparams(int id, const char * settings)
         videoMode = (!strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), "true"));
     }
 
-    /* Blatantly lie to userspace to pass CTS */
-    params.set(android::CameraParameters::KEY_PREVIEW_FPS_RANGE, "5000,60000");
-    params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(5000,60000)");
-
     /* Set supported scene modes */
     if (params.get(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES)) {
         params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES,
@@ -187,10 +183,6 @@ static char * camera_fixup_setparams(int id, const char * settings)
                     android::CameraParameters::FLASH_MODE_OFF);
         }
     }
-
-    /* Don't lie to the hardware otherwise things stop working */
-    params.set(android::CameraParameters::KEY_PREVIEW_FPS_RANGE, "10000,60000");
-    params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(10000,60000)");
 
     /* Disable slow-shutter if HDR or beauty is enabled */
     if (!videoMode) {
