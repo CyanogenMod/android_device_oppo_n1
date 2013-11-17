@@ -33,3 +33,4 @@ tunnel.decode=false
 persist.audio.fluence.mode=endfire
 persist.audio.vr.enable=false
 persist.audio.handset.mic=digital
+af.resampler.quality=255
