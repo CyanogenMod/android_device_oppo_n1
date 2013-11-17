@@ -226,7 +226,7 @@ static char * camera_fixup_setparams(int id, const char * settings)
 
     /* Set correct video snapshot picture size to not crash */
     if (videoMode) {
-        params.getPreferredPreviewSizeForVideo(&previewW, &previewH);
+        params.getVideoSize(&previewW, &previewH);
         params.setPictureSize(previewW, previewH);
     }
 
