@@ -211,7 +211,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # System properties
 PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware=true \
-    debug.composition.type=dyn \
     debug.egl.hw=1 \
     debug.mdpcomp.logs=0 \
     debug.sf.hw=1 \
