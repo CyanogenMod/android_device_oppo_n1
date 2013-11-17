@@ -171,6 +171,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8960
 
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8960
+
 # Thermal config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermald-8064.conf:system/etc/thermald-8064.conf \
