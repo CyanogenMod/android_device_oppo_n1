@@ -1,28 +1,22 @@
-# Executables
-bin/bridgemgrd
+# Misc executables
 bin/btnvtool
 bin/ds_fmc_appd
-bin/efsks
 bin/gsiff_daemon
 bin/hci_qcomm_init
-bin/ks
-bin/mm-qcamera-daemon
 bin/mpdecision
-bin/netmgrd
-bin/nv_tee
-bin/qcks
-bin/qmuxd
 bin/radish
-bin/rmt_storage
-bin/sensors.qcom
-bin/thermald
 
 # Audio
 lib/libacdbloader.so
 lib/libaudcal.so
 lib/libcsd-client.so
 
+# Thermal
+bin/thermald
+lib/libthermalclient.so
+
 # Camera
+bin/mm-qcamera-daemon
 lib/hw/camera.msm8960.so:lib/hw/vendor-camera.msm8960.so
 lib/libgemini.so
 lib/libimage-jpeg-enc-omx-comp.so
@@ -105,12 +99,21 @@ lib/libqmi_encdec.so
 lib/libqmiservices.so
 
 # Radio
+bin/bridgemgrd
+bin/efsks
+bin/ks
+bin/netmgrd
+bin/nv_tee
+bin/qcks
+bin/qmuxd
+bin/rmt_storage
 lib/libnetmgr.so
 lib/libqc-opt.so
 lib/libril-qc-qmi-1.so
 lib/libril-qcril-hook-oem.so
 
 # Sensors
+bin/sensors.qcom
 lib/hw/sensors.msm8960.so
 lib/libAKM.so
 lib/libsensor1.so
