@@ -260,6 +260,9 @@ on post-fs-data
     chown system camera /sys/class/leds/flashlight/brightness
     chmod 0660 /sys/class/leds/flashlight/brightness
 
+    # Kickstart
+    mkdir /data/qcks 0770 system system
+
     # Touchpanel/sensor
     chown root system /proc/touchpad/enable
     chmod 0660 /proc/touchpad/enable
@@ -282,7 +285,10 @@ on post-fs-data
     chown system system /sys/devices/virtual/graphics/fb0/cabc
     chown system system /sys/devices/virtual/graphics/fb0/sre
 
+    # Mpdecision state
     mkdir /data/mpdecision 0660 system system
+
+    setprop qcom.audio.init complete
 
     setprop vold.post_fs_data_done 1
 
@@ -535,12 +541,6 @@ service qcom-sh /system/bin/sh /init.qcom.sh
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
     user root
-    disabled
-    oneshot
-
-service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
-    class late_start
-    group wifi inet
     disabled
     oneshot
 

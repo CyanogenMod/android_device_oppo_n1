@@ -17,6 +17,11 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "wfc_util_log.h"
+#include "cutils/properties.h"
+
+#define NV_ITEMS_SLEEP_DELAY 500
+
 extern int wfc_util_qcom_check_config(unsigned char *nv_mac_addr);
 extern void wfc_util_atoh(char *pAsciiString, int szAsciiString, unsigned char *pHexaBuff, int szHexaBuff);
 
@@ -24,20 +29,30 @@ static int wifi_check_qcom_cfg_files()
 {
     char raw[13];
     char mac[7];
+    int sleep_retry = 0;
+
     memset(raw, 0, 13);
     memset(mac, 0, 7);
 
     // Read MAC String
     FILE *fp = NULL;
     int n = 0;
-    fp = fopen("/data/opponvitems/4678", "r");
-    if ( fp == NULL )
-    {
-        wfc_util_qcom_check_config((unsigned char *)raw);
-        return 0;
+    while (fp == NULL && sleep_retry < 200) {
+        fp = fopen("/data/opponvitems/4678", "r");
+        if (fp == NULL) {
+            wfc_util_log_info("NV items not ready, sleep %dms", NV_ITEMS_SLEEP_DELAY);
+            usleep(NV_ITEMS_SLEEP_DELAY * 1000);
+            sleep_retry++;
+        }
     }
-    else
-    {
+
+    if (fp == NULL) {
+        wfc_util_qcom_check_config((unsigned char *)raw);
+        property_set("wlan.driver.status", "failed");
+        return 0;
+
+    } else {
+
         n = fread(raw, 6, 1, fp);
         fclose(fp);
 
@@ -50,6 +65,8 @@ static int wifi_check_qcom_cfg_files()
         mac[5] = raw[0];
 
         wfc_util_qcom_check_config((unsigned char *)mac);
+
+        property_set("wlan.driver.status", "ok");
     }
     return 1;
 }

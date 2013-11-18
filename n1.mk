@@ -33,15 +33,11 @@ PRODUCT_PACKAGES += \
 # Config scripts
 PRODUCT_PACKAGES += \
     init.crda.sh \
-    init.qcom.audio.sh \
     init.qcom.bt.sh \
     init.qcom.efs.sync.sh \
     init.qcom.mdm_links.sh \
     init.qcom.modem_links.sh \
     init.qcom.post_boot.sh \
-    init.qcom.ril.sh \
-    init.qcom.sensor.sh \
-    init.qcom.thermal_conf.sh \
     init.qcom.usb.sh \
     init.qcom.wifi.sh \
     init.recovery.qcom.rc
