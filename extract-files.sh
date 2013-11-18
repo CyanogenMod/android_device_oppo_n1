@@ -18,10 +18,10 @@ for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
     if [ ! -d $BASE/$DIR ]; then
         mkdir -p $BASE/$DIR
     fi
-    adb pull /system/$FILE $BASE/$DEST
-    # if file does not exist try destination
+    adb pull /system/$DEST $BASE/$FILE
+    # if file does not exist try fallback
     if [ "$?" != "0" ]
     then
-        adb pull /system/$DEST $BASE/$DEST
+        adb pull /system/$FILE $BASE/$DEST
     fi
 done

@@ -27,16 +27,13 @@ PRODUCT_PACKAGES += \
     init.qcom.class_core.sh \
     init.qcom.class_main.sh \
     init.qcom.early_boot.sh \
-    init.qcom.sh \
-    init.qcom.syspart_fixup.sh
+    init.qcom.sh
 
 # Config scripts
 PRODUCT_PACKAGES += \
     init.crda.sh \
     init.qcom.bt.sh \
     init.qcom.efs.sync.sh \
-    init.qcom.mdm_links.sh \
-    init.qcom.modem_links.sh \
     init.qcom.post_boot.sh \
     init.qcom.usb.sh \
     init.qcom.wifi.sh \
@@ -173,8 +170,8 @@ PRODUCT_PACKAGES += \
 
 # Thermal config
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermald-8064.conf:system/etc/thermald-8064.conf \
-    $(LOCAL_PATH)/configs/thermal-engine-8064.conf:system/etc/thermal-engine-8064.conf
+    $(LOCAL_PATH)/configs/thermald-8064-N1.conf:system/etc/thermald.conf \
+    $(LOCAL_PATH)/configs/thermal-engine-8064.conf:system/etc/thermal-engine.conf
 
 # WiFi
 PRODUCT_COPY_FILES += \
