@@ -157,6 +157,12 @@ service time_daemon /system/bin/time_daemon
    user root
    group root
 
+service wcnss-init /system/bin/sh /system/etc/init.qcom.wifi.sh
+    class late_start
+    user system
+    group system wifi
+    oneshot
+
 service wcnss-service /system/bin/wcnss_service
     class late_start
     user system

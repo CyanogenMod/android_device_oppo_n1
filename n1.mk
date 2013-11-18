@@ -184,13 +184,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/oppo/n1/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
     device/oppo/n1/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-    device/oppo/n1/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin
+    device/oppo/n1/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+	device/oppo/n1/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+	device/oppo/n1/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
     wcnss_service \
     crda \
     regulatory.bin \
-    linville.key.pub.pem
+    linville.key.pub.pem \
+    libwfcu \
+    conn_init
 
 # Torch
 PRODUCT_PACKAGES += \
@@ -227,7 +231,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.wireless=WCN3660 \
     ro.qualcomm.bt.hci_transport=smd \
     ro.use_data_netmgrd=true \
-    wifi.interface=wlan0
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=15
 
 # Permissions
 PRODUCT_COPY_FILES += \
