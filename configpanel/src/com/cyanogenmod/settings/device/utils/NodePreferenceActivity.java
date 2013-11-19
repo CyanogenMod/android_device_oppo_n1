@@ -9,7 +9,6 @@ import android.preference.PreferenceActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import com.cyanogenmod.n1.configuration.FileUtils;
 
 public class NodePreferenceActivity extends PreferenceActivity implements OnPreferenceChangeListener {
 
