@@ -115,8 +115,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/keypad_8960.kl:system/usr/keylayout/keypad_8960.kl
 
 # Keystore
-#PRODUCT_PACKAGES += \
-#    keystore.msm8960
+PRODUCT_PACKAGES += \
+    keystore.msm8960
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -144,9 +144,6 @@ PRODUCT_PACKAGES += \
     Tag \
     com.android.nfc_extras
 
-# QRNGD
-PRODUCT_PACKAGES += qrngd
-
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
@@ -164,30 +161,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8960
 
-# Keystore
-PRODUCT_PACKAGES += \
-    keystore.msm8960
+# QRNGD
+PRODUCT_PACKAGES += qrngd
 
 # Thermal config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermald-8064-N1.conf:system/etc/thermald.conf \
     $(LOCAL_PATH)/configs/thermal-engine-8064.conf:system/etc/thermal-engine.conf
-
-# WiFi
-PRODUCT_COPY_FILES += \
-    device/oppo/n1/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
-    device/oppo/n1/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-    device/oppo/n1/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
-	device/oppo/n1/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-	device/oppo/n1/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
-
-PRODUCT_PACKAGES += \
-    wcnss_service \
-    crda \
-    regulatory.bin \
-    linville.key.pub.pem \
-    libwfcu \
-    conn_init
 
 # Torch
 PRODUCT_PACKAGES += \
@@ -196,6 +176,22 @@ PRODUCT_PACKAGES += \
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
+
+# WiFi
+PRODUCT_COPY_FILES += \
+    device/oppo/n1/wifi/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
+    device/oppo/n1/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    device/oppo/n1/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/wifi/WCNSS_qcom_wlan_nv.bin \
+    device/oppo/n1/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    device/oppo/n1/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
+PRODUCT_PACKAGES += \
+    wcnss_service \
+    crda \
+    regulatory.bin \
+    linville.key.pub.pem \
+    libwfcu \
+    conn_init
 
 # Init logos
 PRODUCT_PACKAGES += \
