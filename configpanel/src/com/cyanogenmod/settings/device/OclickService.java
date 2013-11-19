@@ -155,6 +155,7 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
                 builder.setContentTitle("O-Click phone locator");
                 builder.setContentText("Locator alert is playing. Tap to dismiss");
                 builder.setAutoCancel(true);
+                builder.setOngoing(true);
 
                 PendingIntent resultPendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, new Intent(CANCEL_ALERT_PHONE), 0);
                 builder.setContentIntent(resultPendingIntent);
