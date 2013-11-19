@@ -81,6 +81,15 @@ lib/libExtendedExtractor.so
 # NFC
 etc/firmware/libpn544_fw.so:vendor/firmware/libpn544_fw.so
 
+# Oppo NV
+app/OppoNvProcess.apk
+app/OppoRadioShutdown.apk
+framework/qcnvitems.jar
+etc/permissions/qcnvitems.xml
+framework/qcrilhook.jar
+etc/permissions/qcrilhook.xml
+app/qcrilmsgtunnel.apk
+
 # Qualcomm framework
 lib/libdiag.so
 lib/libdsi_netctrl.so
