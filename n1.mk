@@ -164,6 +164,16 @@ PRODUCT_PACKAGES += \
 # QRNGD
 PRODUCT_PACKAGES += qrngd
 
+# Radio
+PRODUCT_PACKAGES += \
+    OppoNvProcess \
+    OppoRadioShutdown \
+    qcnvitems \
+    qcnvitems.xml \
+    qcrilhook \
+    qcrilhook.xml \
+    qcrilmsgtunnel
+
 # Thermal config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/thermald-8064-N1.conf:system/etc/thermald.conf \

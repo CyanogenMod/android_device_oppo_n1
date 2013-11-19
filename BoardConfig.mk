@@ -93,6 +93,7 @@ TARGET_USES_CM_POWERHAL := true
 # Radio
 BOARD_PROVIDES_LIBRIL := true
 BOARD_RIL_NO_CELLINFOLIST := true
+TARGET_ADDITIONAL_BOOTCLASSPATH := qcnvitems:qcrilhook
 
 # Tuning
 BOARD_HARDWARE_CLASS := device/oppo/n1/cmhw

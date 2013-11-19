@@ -32,7 +32,8 @@ on early-init
     symlink /data/tombstones /tombstones
     mount debugfs debugfs /sys/kernel/debug
 
-#on init
+on init
+    export BOOTCLASSPATH ${BOOTCLASSPATH}:/system/framework/qcnvitems.jar:/system/framework/qcrilhook.jar
 #    export BOOTCLASSPATH ${BOOTCLASSPATH}:/system/framework/security-bridge.jar:/system/framework/oem-services.jar
 
 on fs
