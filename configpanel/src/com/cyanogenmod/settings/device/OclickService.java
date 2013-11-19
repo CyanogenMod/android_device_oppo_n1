@@ -266,7 +266,7 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onstartCommand");
-        if (mBluetoothGatt == null) {
+        if (intent != null && mBluetoothGatt == null) {
             mOClickDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             if (mOClickDevice == null) {
                 Log.e(TAG, "No bluetooth device provided");
@@ -274,7 +274,7 @@ public class OclickService extends Service implements OnSharedPreferenceChangeLi
             }
             mOClickDevice.connectGatt(getBaseContext(), false, mGattCallback);
         }
-        return Service.START_STICKY;
+        return Service.START_REDELIVER_INTENT;
     }
 
     @Override
