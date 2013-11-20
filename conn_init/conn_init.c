@@ -25,11 +25,11 @@ extern void wfc_util_atoh(char *pAsciiString, int szAsciiString, unsigned char *
 
 static int wifi_check_qcom_cfg_files()
 {
-    char raw[13];
-    char mac[7];
+    char raw[6];
+    char mac[6];
 
-    memset(raw, 0, 13);
-    memset(mac, 0, 7);
+    memset(raw, 0, 6);
+    memset(mac, 0, 6);
 
     // Read MAC String
     FILE *fp = NULL;

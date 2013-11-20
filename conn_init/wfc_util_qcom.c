@@ -78,6 +78,7 @@
  */
 #ifdef WLAN_CHIP_VERSION_WCNSS
 #define WFC_UTIL_CFG_TAG_MAC_ADDRESS    "Intf0MacAddress="
+#define WFC_UTIL_CFG_TAG_P2P_ADDRESS    "Intf1MacAddress="
 #else  /* WLAN_CHIP_VERSION_WCN1314 */
 #define WFC_UTIL_CFG_TAG_MAC_ADDRESS    "NetworkAddress="
 #endif /* WLAN_CHIP_VERSION_XXXX */
@@ -224,6 +225,15 @@ static void wfc_util_qcom_write_mac(char *mac_add)
 	                     mac_add);
 
 	/*
+	 * P2P Mode MAC Address
+	 */
+	wfc_util_fset_string(WFC_UTIL_CFG_FILE_NAME,
+					 	 WFC_UTIL_CFG_TAG_END_OF_CFG,
+						 WFC_UTIL_CFG_TAG_P2P_ADDRESS,
+						 WFC_UTIL_CFG_TAG_END_OF_LINE,
+						 mac_add);
+
+	/*
 	 * AP Mode MAC Address
 	 */
 	wfc_util_fset_string(WFC_UTIL_CFG_FILE_NAME,
@@ -358,6 +368,17 @@ static void wfc_util_qcom_write_mac_to_bin(unsigned char *mac_add)
 	                     WFC_UTIL_NV_BIN_POS_MAC_ADDR,
 	                     mac_add,
 	                     WFC_UTIL_CFG_LENGHT_MAC);
+
+    wfc_util_log_error("write mac1");
+
+	/*
+	 * Write RFT MAC Address P2P
+	 */
+	wfc_util_fset_buffer(WFC_UTIL_NV_BIN_FILE_NAME,
+						 WFC_UTIL_NV_BIN_POS_MAC_ADDR + 6,
+						 mac_add,
+						 WFC_UTIL_CFG_LENGHT_MAC);
+    wfc_util_log_error("write mac2");
 
 	/*
 	 * Read NV validity bitmap
