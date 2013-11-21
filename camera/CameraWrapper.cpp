@@ -185,14 +185,9 @@ static char * camera_fixup_setparams(int id, const char * settings)
     /* De-purpleate */
     params.set("reduce-purple", "on");
 
-    /* Disable flash if HDR, auto-scene or slow-shutter is enabled */
+    /* Disable flash if HDR or slow-shutter is enabled */
     if (!videoMode) {
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
-            params.set(android::CameraParameters::KEY_FLASH_MODE,
-                    android::CameraParameters::FLASH_MODE_OFF);
-        }
-
-        if (!strcmp(sceneMode, "asd")) {
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
         }
