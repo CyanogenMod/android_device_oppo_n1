@@ -201,7 +201,9 @@ PRODUCT_PACKAGES += \
     regulatory.bin \
     linville.key.pub.pem \
     libwfcu \
-    conn_init
+    conn_init \
+    WCNSS_qcom_cfg.ini \
+    WCNSS_qcom_wlan_nv.bin
 
 # Init logos
 PRODUCT_PACKAGES += \
