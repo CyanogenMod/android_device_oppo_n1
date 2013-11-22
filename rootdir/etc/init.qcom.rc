@@ -173,7 +173,7 @@ on charger
     write /sys/devices/system/cpu/cpu2/online 0
     write /sys/devices/system/cpu/cpu3/online 0
     write /sys/devices/platform/gpio-keys/disabled_keys 102,114-115,139,158
-    write /sys/class/leds/button-backlight 0
+    write /sys/class/leds/button-backlight/brightness 0
 
 on post-fs
     # Increase readahead
