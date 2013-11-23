@@ -127,6 +127,11 @@ static char * camera_fixup_getparams(int id, const char * settings)
                 android::CameraParameters::ISO_AUTO);
     }
 
+    /* Remove exposure, values don't do anything */
+    params.set(android::CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
+    params.set(android::CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "0");
+    params.set(android::CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "0");
+
     /* Disable AEC and AWB lock, pictures are terrible */
     params.set(android::CameraParameters::KEY_AUTO_EXPOSURE_LOCK_SUPPORTED, "false");
     params.set(android::CameraParameters::KEY_AUTO_WHITEBALANCE_LOCK_SUPPORTED, "false");
