@@ -133,6 +133,7 @@ BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Recovery
 ifeq ($(WITH_SIMPLE_RECOVERY),true)
+    PRODUCT_EXTRA_RECOVERY_KEYS += vendor/extra/recovery_keys/OPPO_N1
     TARGET_RECOVERY_FSTAB := device/oppo/n1/recovery.fstab
 else
     TARGET_RECOVERY_FSTAB := device/oppo/n1/rootdir/etc/fstab.qcom
