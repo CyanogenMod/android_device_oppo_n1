@@ -217,11 +217,11 @@
 
     <!-- The list absolute paths of jar/apk files containing the device specific handlers,
          delimited by File.pathSeparator, which defaults to ":" on Android -->
-    <string name="config_deviceHandlersLib" translatable="false">/system/app/ConfigPanel.apk</string>
+    <!-- <string name="config_deviceHandlerLib" translatable="false">/system/app/ConfigPanel.apk</string> -->
 
     <!-- Full qualified name of the class that implements
          com.android.internal.os.DeviceKeyHandler interface. -->
-    <string name="config_deviceKeyHandlerClass" translatable="false">com.cyanogenmod.settings.device.KeyHandler</string>
+    <!-- <string name="config_deviceKeyHandlerClass" translatable="false">com.cyanogenmod.settings.device.KeyHandler</string> -->
 
     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
@@ -253,9 +253,10 @@
     <!-- Make things go fast -->
     <bool name="config_ui_enableFadingMarquee">false</bool>
 
-    <!-- Performance profiles -->
+    <!-- Performance profiles
     <string name="config_perf_profile_prop">sys.perf.profile</string>
     <string name="config_perf_profile_default_entry">1</string>
+    -->
 
     <!-- Enable lockscreen translucent decor by default -->
     <bool name="config_enableLockScreenTranslucentDecor">true</bool>
