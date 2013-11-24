@@ -32,7 +32,8 @@ on init
     mkdir /persist 0771 system system
 
     # See storage config details at http://source.android.com/tech/storage/
-    mkdir /storage/sdcard0 0000 system system
+    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
+    mkdir /storage/sdcard0 0700 root root
 
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
     mkdir /storage/usbdisk 0700 root root
@@ -609,6 +610,10 @@ service profiler_daemon /system/bin/profiler_daemon
     class late_start
     user root
     group root
+    disabled
+
+service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+    class late_start
     disabled
 
 service hcidump /system/bin/sh /system/etc/hcidump.sh
