@@ -1,7 +1,0 @@
-genfscon proc /touchpad/enable u:object_r:input_proc:s0
-genfscon proc /touchpanel/camera_enable u:object_r:input_proc:s0
-genfscon proc /touchpanel/double_tap_enable u:object_r:input_proc:s0
-genfscon proc /touchpanel/flashlight_enable u:object_r:input_proc:s0
-genfscon proc /touchpanel/glove_mode_enable u:object_r:input_proc:s0
-genfscon proc /touchpanel/music_enable u:object_r:input_proc:s0
-

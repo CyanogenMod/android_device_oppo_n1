@@ -39,7 +39,7 @@ TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
 # Kernel
 BOARD_KERNEL_BASE := 0x80200000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom lpj=67677 user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 zcache
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom lpj=67677 user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 zcache androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 TARGET_KERNEL_CONFIG := cyanogenmod_n1_defconfig
 TARGET_KERNEL_SOURCE := kernel/oppo/n1
@@ -142,35 +142,24 @@ BOARD_RECOVERY_SWIPE := true
 # SELinux
 BOARD_SEPOLICY_DIRS += device/oppo/n1/sepolicy
 BOARD_SEPOLICY_UNION += \
-    file_contexts \
-    genfs_contexts \
-    property_contexts \
-    te_macros \
-    bluetooth_loader.te \
-    bridge.te \
-    camera.te \
-    conn_init.te \
-    device.te \
-    dhcp.te \
-    domain.te \
-    drmserver.te \
-    file.te \
-    kickstart.te \
-    init.te \
-    mediaserver.te \
-    mpdecision.te \
-    netmgrd.te \
-    property.te \
-    qmux.te \
-    rild.te \
-    rmt.te \
-    sensors.te \
-    surfaceflinger.te \
-    system.te \
-    tee.te \
-    thermald.te \
-    ueventd.te \
-    wpa_supplicant.te
+       app.te \
+       bluetooth.te \
+       device.te \
+       domain.te \
+       drmserver.te \
+       file.te \
+       file_contexts \
+       hci_init.te \
+       init_shell.te \
+       keystore.te \
+       mediaserver.te \
+       kickstart.te \
+       nfc.te \
+       rild.te \
+       surfaceflinger.te \
+       system.te \
+       ueventd.te \
+       wpa.te
 
 TARGET_RELEASETOOLS_EXTENSIONS := device/oppo/n1
 
