@@ -17,4 +17,4 @@
 /devices/platform/msm_sdcc.1/mmc_host/mmc0            auto         auto    defaults                                   voldmanaged=sdcard0:29,nonremovable,noemulatedsd
 
 # USB storage
-/devices/platform/msm_hsusb_host/usb                  auto         auto    defaults                                   voldmanaged=usbdisk:auto
+/devices/platform/msm_hsusb_host/usb                  auto         auto    defaults                                   voldmanaged=usbdisk:auto,noemulatedsd
