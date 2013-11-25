@@ -51,8 +51,6 @@ PRODUCT_PACKAGES += \
 #PRODUCT_PACKAGES += \
 #    init.recovery.qcom.rc
 
-PRODUCT_CHARACTERISTICS := nosdcard
-
 # Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
