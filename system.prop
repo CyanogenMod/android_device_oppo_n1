@@ -20,7 +20,7 @@ ro.qc.sdk.audio.fluencetype=fluence
 ro.qc.sdk.camera.facialproc=true
 ro.qc.sdk.gestures.camera=false
 ro.qc.sdk.sensors.gestures=true
-ro.vendor.extension_library=/system/lib/libqc-opt.so
+ro.vendor.extension_library=/vendor/lib/libqc-opt.so
 
 # NFC
 debug.nfc.fw_download=true

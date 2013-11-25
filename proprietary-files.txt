@@ -54,13 +54,15 @@ vendor/lib/egl/libGLESv2_adreno.so
 vendor/lib/egl/libGLESv2S3D_adreno.so
 vendor/lib/egl/libq3dtools_adreno.so
 vendor/lib/libadreno_utils.so
-vendor/lib/libc2d2_a3xx.so
+vendor/lib/libc2d30-a3xx.so
+vendor/lib/libc2d30.so
 vendor/lib/libC2D2.so
 vendor/lib/libCB.so
 vendor/lib/libgsl.so
 vendor/lib/libllvm-a3xx.so
-vendor/lib/libOpenCL.so
-vendor/lib/libOpenVG.so
+vendor/lib/librs_adreno_sha1.so
+vendor/lib/librs_adreno.so
+vendor/lib/libRSDriver_adreno.so
 vendor/lib/libsc-a3xx.so
 
 # Graphics firmware
@@ -120,7 +122,6 @@ bin/qcks
 bin/qmuxd
 bin/rmt_storage
 lib/libnetmgr.so
-lib/libqc-opt.so
 lib/libril-qc-qmi-1.so
 lib/libril-qcril-hook-oem.so
 
@@ -147,7 +148,7 @@ vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # Misc
-lib/libqc-opt.so
+vendor/lib/libqc-opt.so
 lib/libadsprpc.so
 
 # CABL
