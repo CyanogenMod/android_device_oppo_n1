@@ -176,10 +176,6 @@ BOARD_SEPOLICY_UNION += \
     ueventd.te \
     wpa_supplicant.te
 
-# Vold
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-BOARD_VOLD_MAX_PARTITIONS := 36
-
 TARGET_RELEASETOOLS_EXTENSIONS := device/oppo/n1
 
 # inherit from the proprietary version
