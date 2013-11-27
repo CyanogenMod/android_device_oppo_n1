@@ -121,6 +121,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.msm8960
 
+# IPC router config
+PRODUCT_COPY_FILES += \
+    device/oppo/n1/configs/sec_config:system/etc/sec_config
+
 # Media profile
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
