@@ -29,7 +29,7 @@ ro.nfc.port=I2C
 
 # Audio (FIXME)
 lpa.decode=false
-tunnel.audiovideo.decode=true
+tunnel.audiovideo.decode=false
 tunnel.decode=false
 persist.audio.fluence.mode=endfire
 persist.audio.vr.enable=false
