@@ -82,6 +82,6 @@ public class Startup extends BroadcastReceiver {
     private void sendInputEvent(InputEvent event) {
         InputManager inputManager = InputManager.getInstance();
         inputManager.injectInputEvent(event,
-                InputManager.INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH);
+                InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
     }
 }
