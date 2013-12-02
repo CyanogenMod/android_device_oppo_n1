@@ -34,13 +34,6 @@
 extern "C" {
 #endif
 
-
-#define MAX_RILDS 3
-#define MAX_CLIENT_ID_LENGTH 2
-#define MAX_SOCKET_NAME_LENGTH 6
-#define MAX_DEBUG_SOCKET_NAME_LENGTH 12
-#define MAX_QEMU_PIPE_NAME_LENGTH 11
-
 typedef enum {
   RIL_UICC_SUBSCRIPTION_DEACTIVATE = 0,
   RIL_UICC_SUBSCRIPTION_ACTIVATE = 1
@@ -56,7 +49,7 @@ typedef struct {
   int   slot;                        /* 0, 1, ... etc. */
   int   app_index;                   /* array subscriptor from applications[RIL_CARD_MAX_APPS] in
                                         RIL_REQUEST_GET_SIM_STATUS */
-  RIL_SubscriptionType  sub_type;    /* Indicates subscription 0 or subscription 1 */
+  RIL_SubscriptionType  sub_type;    /* Indicates subscription 1 or subscription 2 */
   RIL_UiccSubActStatus  act_status;
 } RIL_SelectUiccSub;
 
