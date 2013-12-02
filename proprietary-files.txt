@@ -1,7 +1,6 @@
 # Misc executables
 bin/btnvtool
 bin/ds_fmc_appd
-bin/gsiff_daemon
 bin/hci_qcomm_init
 bin/irsc_util
 bin/mpdecision
@@ -42,10 +41,23 @@ lib/libmmstillomx.so
 lib/liboemcamera.so
 
 # GPS
-bin/wiperiface
-bin/wiperiface_v02
+app/com.qualcomm.location.apk
+bin/gsiff_daemon
+etc/permissions/com.qualcomm.location.xml
+lib/libgps.utils.so
+lib/libloc_core.so
 lib/libloc_api_v02.so
-lib/libgeofence.so
+lib/libloc_ds_api.so
+lib/libloc_eng.so
+lib/libloc_xtra.so
+lib/hw/gps.msm8960.so
+vendor/lib/libgeofence.so
+vendor/lib/libizat_core.so
+vendor/lib/liblbs_core.so
+vendor/lib/liblocationservice.so
+vendor/lib/libulp2.so
+vendor/lib/libquipc_os_api.so
+vendor/lib/libquipc_ulp_adapter.so
 
 # Graphics
 vendor/lib/egl/eglsubAndroid.so
@@ -97,7 +109,6 @@ etc/permissions/qcrilhook.xml
 app/qcrilmsgtunnel.apk
 
 # Qualcomm framework
-lib/libdiag.so
 lib/libdsi_netctrl.so
 lib/libdsutils.so
 lib/libidl.so
@@ -105,13 +116,14 @@ lib/libqcci_legacy.so
 lib/libqdi.so
 lib/libqdp.so
 lib/libqmi.so
-lib/libqmi_cci.so
 lib/libqmi_client_qmux.so
-lib/libqmi_common_so.so
-lib/libqmi_csi.so
 lib/libqmi_csvt_srvc.so
-lib/libqmi_encdec.so
 lib/libqmiservices.so
+vendor/lib/libdiag.so
+vendor/lib/libqmi_cci.so
+vendor/lib/libqmi_csi.so
+vendor/lib/libqmi_common_so.so
+vendor/lib/libqmi_encdec.so
 
 # Radio
 bin/bridgemgrd

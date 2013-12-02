@@ -18,6 +18,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-1080p
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
@@ -36,8 +37,7 @@ PRODUCT_PACKAGES += \
     init.qcom.efs.sync.sh \
     init.qcom.post_boot.sh \
     init.qcom.usb.sh \
-    init.qcom.wifi.sh \
-    init.recovery.qcom.rc
+    init.qcom.wifi.sh
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -48,8 +48,8 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc
 
 # Recovery
-#PRODUCT_PACKAGES += \
-#    init.recovery.qcom.rc
+PRODUCT_PACKAGES += \
+    init.recovery.qcom.rc
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -81,9 +81,6 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 # GPS
-PRODUCT_PACKAGES += \
-    gps.msm8960
-
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
@@ -215,7 +212,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     com.qc.hardware=true \
     debug.egl.hw=1 \
     debug.mdpcomp.logs=0 \
-    debug.sf.hw=1 \
     persist.hwc.mdpcomp.enable=true \
     persist.gps.qmienabled=true \
     persist.thermal.monitor=true \

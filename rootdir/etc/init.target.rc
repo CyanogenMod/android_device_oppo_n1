@@ -65,15 +65,15 @@ on post-fs-data
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
-        class late_start
-        user camera
-        group camera system inet input graphics net_bt_stack
+    class late_start
+    user camera
+    group camera system inet input graphics net_bt_stack
 
 #start GNSS/Sensor interface daemon
-#service gsiff_daemon /system/bin/gsiff_daemon
-#    class late_start
-#    user system
-#    group gps qcom_oncrpc net_raw
+service gsiff_daemon /system/bin/gsiff_daemon
+    class late_start
+    user system
+    group gps qcom_oncrpc net_raw
 
 # usb-otg storage
 service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
