@@ -39,7 +39,7 @@ public class Startup extends BroadcastReceiver {
                     context, Constants.TOUCHPAD_LONGPRESS_KEY, false));
 
             // Set doubleTap event
-            toggleLongPress(context, sInstance, Constants.isPreferenceEnabled(
+            toggleDoubleTap(context, sInstance, Constants.isPreferenceEnabled(
                     context, Constants.TOUCHPAD_DOUBLETAP_KEY, false));
         } else if (intent.getAction().equals("cyanogenmod.intent.action.GESTURE_CAMERA")) {
             long now = SystemClock.uptimeMillis();
@@ -59,7 +59,6 @@ public class Startup extends BroadcastReceiver {
                     context, 0, doubleTapIntent, 0, UserHandle.CURRENT);
         }
         try {
-            System.out.println("toggleDoubleTap : " + pendingIntent);
             gestureService.setOnDoubleClickPendingIntent(pendingIntent);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -74,7 +73,6 @@ public class Startup extends BroadcastReceiver {
                     context, 0, longPressIntent, 0, UserHandle.CURRENT);
         }
         try {
-            System.out.println("toggleLongPress : " + pendingIntent);
             gestureService.setOnLongPressPendingIntent(pendingIntent);
         } catch (RemoteException e) {
             e.printStackTrace();
