@@ -12,7 +12,6 @@ LOCAL_CFLAGS += -DCHARGER_ENABLE_SUSPEND
 
 LOCAL_MODULE := charger_n1
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_STEM := charger
 LOCAL_FORCE_STATIC_EXECUTABLE := true
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 LOCAL_UNSTRIPPED_PATH := $(TARGET_ROOT_OUT_UNSTRIPPED)
@@ -25,7 +24,7 @@ LOCAL_STATIC_LIBRARIES += libz libstdc++ libcutils liblog libm libc
 
 include $(BUILD_EXECUTABLE)
 
-define _add-charger-image
+define _add-n1-charger-image
 include $$(CLEAR_VARS)
 LOCAL_MODULE := device_oppo_n1_charger_$(notdir $(1))
 LOCAL_MODULE_STEM := $(notdir $(1))
@@ -40,7 +39,7 @@ endef
 _img_modules :=
 _images :=
 $(foreach _img, $(call find-subdir-subdir-files, "images", "*.png"), \
-  $(eval $(call _add-charger-image,$(_img))))
+  $(eval $(call _add-n1-charger-image,$(_img))))
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := charger_res_images_n1
