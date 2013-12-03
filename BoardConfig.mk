@@ -113,10 +113,6 @@ BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
 
-# Init
-BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_CHARGER_RES := device/oppo/n1/charger
-
 # Filesystem
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 10485760
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 536870912
