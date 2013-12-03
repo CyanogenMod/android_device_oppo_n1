@@ -221,6 +221,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.wireless=WCN3660 \
     ro.qualcomm.bt.hci_transport=smd \
     ro.use_data_netmgrd=true \
+    persist.data.netmgrd.qos.enable=true \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
 
