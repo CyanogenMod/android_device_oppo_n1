@@ -130,6 +130,7 @@ case "$target" in
          echo 1026000 > /sys/devices/system/cpu/cpufreq/ondemand/sync_freq
          echo 80 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load
          echo 1134000 > /sys/devices/system/cpu/cpufreq/ondemand/input_boost
+         echo 1 > /dev/cpuctl/apps/cpu.notify_on_migrate
          chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
          chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
          chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
