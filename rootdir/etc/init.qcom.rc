@@ -27,7 +27,15 @@
 
 import init.qcom.usb.rc
 
+on early-init
+    mkdir /firmware 0771 system system
+    symlink /data/tombstones /tombstones
+    mount debugfs debugfs /sys/kernel/debug
+    chown system system /sys/kernel/debug/kgsl/proc
+
 on init
+    export BOOTCLASSPATH ${BOOTCLASSPATH}:/system/framework/qcnvitems.jar:/system/framework/qcrilhook.jar
+
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
@@ -47,10 +55,21 @@ on init
     export EXTERNAL_STORAGE /storage/sdcard0
     export SECONDARY_STORAGE /storage/usbdisk
 
+on fs
+    mount_all fstab.qcom
+    restorecon -R /persist
+    restorecon -R /proc/touchpad
+    restorecon -R /proc/touchpanel
+    restorecon -R /sys/devices/system/cpu/cpu0/cpufreq
+    restorecon -R /sys/devices/system/cpu/cpu1/cpufreq
+    restorecon -R /sys/devices/system/cpu/cpu2/cpufreq
+    restorecon -R /sys/devices/system/cpu/cpu3/cpufreq
+    restorecon /sys/kernel/mm/ksm/run
+    restorecon /sys/devices/virtual/graphics/fb0/cabc
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    exec /system/bin/sh /init.qcom.early_boot.sh ${ro.board.platform}
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -100,6 +119,18 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
+    # create symlink for fb1 as HDMI
+    symlink /dev/graphics/fb1 /dev/graphics/hdmi
+
+    # Remove write permissions to video related nodes
+    chmod 0664 /sys/devices/virtual/graphics/fb1/hpd
+    chmod 0664 /sys/devices/virtual/graphics/fb1/video_mode
+    chmod 0664 /sys/devices/virtual/graphics/fb1/format_3d
+
+    # Change owner and group for media server and surface flinger
+    chown system system /sys/devices/virtual/graphics/fb1/format_3d
+    chown system system /sys/devices/virtual/graphics/fb1/hpd
+
     # Change permissions for fps_level nodes
     chown system graphics /sys/class/graphics/fb0/msm_fb_fps_level
     chown system graphics /sys/class/graphics/fb1/msm_fb_fps_level
@@ -107,6 +138,11 @@ on boot
     chmod 644 /sys/class/graphics/fb0/msm_fb_fps_level
     chmod 400 /sys/class/graphics/fb1/msm_fb_fps_level
     chmod 400 /sys/class/graphics/fb2/msm_fb_fps_level
+
+    chmod 660 /dev/rtc0
+    chown system system /dev/rtc0
+
+    chown root system /proc/net/ip_conntrack
 
     # Enable DEBUG_SUSPEND, DEBUG_EXIT_SUSPEND, and DEBUG_WAKEUP
     write /sys/module/wakelock/parameters/debug_mask 7
@@ -187,6 +223,14 @@ on post-fs
 
 # msm specific files that need to be created on /data
 on post-fs-data
+    mkdir /data/tombstones 0771 system system
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+    mkdir /tombstones/mdm 0771 system system
+    mkdir /tombstones/mdm2 0771 system system
+
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
@@ -236,31 +280,27 @@ on post-fs-data
     mkdir /data/system 0775 system system
     #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
-    #Create directories for wiper services
-    mkdir /data/wpstiles/ 0755 shell
-    mkdir /data/wiper 0755 gps qcom_oncrpc
+    #Create directory used by sensor subsystem(dsps)
+    mkdir /data/system/sensors
+    chmod 665 /data/system/sensors
+    write /data/system/sensors/settings 1
+    restorecon /data/system/sensors/settings
+    chmod 660 /data/system/sensors/settings
 
-    #Create directories for gpsone_daemon services
-    mkdir /data/misc/gpsone_d 0770 system gps
+    # AKM setting data
+    mkdir /data/misc/sensors
+    chmod 775 /data/misc/sensors
 
-    #Create directories for QuIPS
-    mkdir /data/misc/quipc 0770 gps system
+    mkdir /persist/sensors
+    chmod 775 /persist/sensors
 
     #Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
     mkdir /data/misc/location/xtwifi 0770 gps gps
 
-    #Create directory from IMS services
-    mkdir /data/shared 0755
-    chown system system /data/shared
-
-    #Create directory for FOTA
-    mkdir /data/fota 0771
-    chown system system /data/fota
-
     #Create directory for hostapd
-    mkdir /data/hostapd 0770 system wifi
+    mkdir /data/hostapd 0660 system wifi
 
     # Create /data/time folder for time-services
     mkdir /data/time/ 0700 system system
@@ -321,18 +361,7 @@ on property:bluetooth.sap.status=running
 on property:bluetooth.sap.status=stopped
     stop bt-sap
 
-service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
-    class core
-    user root
-    oneshot
-
-service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
-    class main
-    user root
-    oneshot
-
 on property:vold.decrypt=trigger_restart_framework
-    start qcom-c_main-sh
     start config_bluetooth
 
 #service cnd /system/bin/cnd
@@ -405,7 +434,6 @@ service sensors /system/bin/sensors.qcom
     class late_start
     user root
     group root
-    disabled
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
@@ -493,11 +521,6 @@ on property:drmdiag.load=1
 
 on property:drmdiag.load=0
     stop drmdiag
-
-service qcom-sh /system/bin/sh /init.qcom.sh
-    class late_start
-    user root
-    oneshot
 
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
@@ -589,3 +612,93 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     group system qcom_diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
+
+#start GNSS/Sensor interface daemon
+service gsiff_daemon /system/bin/gsiff_daemon
+    class late_start
+    user system
+    group gps qcom_oncrpc net_raw
+
+# usb-otg storage
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
+   class late_start
+   disabled
+
+# internal sdcard
+service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+   class late_start
+   disabled
+
+service thermald /system/bin/thermald
+   class main
+
+service mpdecision /system/bin/mpdecision --no_sleep --avg_comp
+   class main
+
+service kickstart /system/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
+   class core
+   oneshot
+
+service qrngd /system/bin/qrngd -f
+   class main
+   user root
+   group root
+
+service qseecomd /system/bin/qseecomd
+   class late_start
+   user system
+   group system
+
+service time_daemon /system/bin/time_daemon
+   class late_start
+   user root
+   group root
+
+service wcnss-init /system/bin/sh /system/etc/init.qcom.wifi.sh
+    class main
+    user root
+    oneshot
+
+#start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics net_bt_stack
+
+
+# CM Performance Profiles
+
+# Powersave
+on property:sys.perf.profile=0
+    start mpdecision
+    start thermald
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor conservative
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor conservative
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor conservative
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor ondemand
+
+# Balanced
+on property:sys.perf.profile=1
+    start mpdecision
+    start thermald
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor ondemand
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor ondemand
+
+# High performance
+on property:sys.perf.profile=2
+    stop mpdecision
+    stop thermald
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
+    write /sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor performance
+

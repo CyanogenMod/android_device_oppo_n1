@@ -23,18 +23,10 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-108
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-# Init scripts
-PRODUCT_PACKAGES += \
-    init.qcom.class_core.sh \
-    init.qcom.class_main.sh \
-    init.qcom.early_boot.sh \
-    init.qcom.sh
-
 # Config scripts
 PRODUCT_PACKAGES += \
     init.crda.sh \
     init.qcom.bt.sh \
-    init.qcom.efs.sync.sh \
     init.qcom.post_boot.sh \
     init.qcom.usb.sh \
     init.qcom.wifi.sh
@@ -44,7 +36,6 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.rc \
     init.qcom.usb.rc \
-    init.target.rc \
     ueventd.qcom.rc
 
 # Recovery
