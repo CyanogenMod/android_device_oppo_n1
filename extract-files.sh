@@ -8,7 +8,7 @@ rm -rf $BASE/*
 
 for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
     OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
-    FILE=${PARSING_ARRAY[0]}
+    FILE=`echo ${PARSING_ARRAY[0]} | sed -e "s/^-//g"`
     DEST=${PARSING_ARRAY[1]}
     if [ -z $DEST ]
     then

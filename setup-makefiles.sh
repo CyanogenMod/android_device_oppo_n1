@@ -36,12 +36,14 @@ for FILE in `egrep -v '(^#|^$)' ../$DEVICE/proprietary-files.txt`; do
     fi
     # Split the file from the destination (format is "file[:destination]")
     OLDIFS=$IFS IFS=":" PARSING_ARRAY=($FILE) IFS=$OLDIFS
-    FILE=${PARSING_ARRAY[0]}
-    DEST=${PARSING_ARRAY[1]}
-    if [ -n "$DEST" ]; then
-        FILE=$DEST
+    if [[ ! "$FILE" =~ ^-.* ]]; then
+        FILE=`echo ${PARSING_ARRAY[0]} | sed -e "s/^-//g"`
+        DEST=${PARSING_ARRAY[1]}
+        if [ -n "$DEST" ]; then
+            FILE=$DEST
+        fi
+        echo "    $OUTDIR/proprietary/$FILE:system/$FILE$LINEEND" >> $MAKEFILE
     fi
-    echo "    $OUTDIR/proprietary/$FILE:system/$FILE$LINEEND" >> $MAKEFILE
 done
 
 (cat << EOF) > ../../../$OUTDIR/$DEVICE-vendor.mk
@@ -64,7 +66,11 @@ done
 # Pick up overlay for features that depend on non-open-source files
 DEVICE_PACKAGE_OVERLAYS += vendor/$VENDOR/$DEVICE/overlay
 
-PRODUCT_PACKAGES += libtime_genoff
+PRODUCT_PACKAGES += \\
+    libtime_genoff \\
+    libqc-opt \\
+    com.qualcomm.location \\
+    PPPreference
 
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF
@@ -116,6 +122,36 @@ LOCAL_SRC_FILES := proprietary/lib/libtime_genoff.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := libqc-opt
+LOCAL_MODULE_OWNER := oppo
+LOCAL_SRC_FILES := proprietary/vendor/lib/libqc-opt.so
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := .so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR)/lib
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := PPPreference
+LOCAL_MODULE_OWNER := oppo
+LOCAL_SRC_FILES := proprietary/app/PPPreference.apk
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := .apk
+LOCAL_MODULE_CLASS := APPS
+LOCAL_CERTIFICATE := platform
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := com.qualcomm.location
+LOCAL_MODULE_OWNER := oppo
+LOCAL_SRC_FILES := proprietary/app/com.qualcomm.location.apk
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := .apk
+LOCAL_MODULE_CLASS := APPS
+LOCAL_CERTIFICATE := platform
 include \$(BUILD_PREBUILT)
 
 endif

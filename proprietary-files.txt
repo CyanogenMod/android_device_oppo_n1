@@ -41,7 +41,7 @@ lib/libmmstillomx.so
 lib/liboemcamera.so
 
 # GPS
-app/com.qualcomm.location.apk
+-app/com.qualcomm.location.apk
 bin/gsiff_daemon
 etc/permissions/com.qualcomm.location.xml
 lib/libgps.utils.so
@@ -161,17 +161,18 @@ vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # Misc
-vendor/lib/libqc-opt.so
+-vendor/lib/libqc-opt.so
 lib/libadsprpc.so
 
-# CABL
+# Postprocessing
+-app/PPPreference.apk
 bin/mm-pp-daemon
 lib/libmm-abl.so
 lib/libmm-abl-oem.so
 
 # Time services
 bin/time_daemon
-lib/libtime_genoff.so
+-lib/libtime_genoff.so
 
 # Keystore
 vendor/firmware/keymaster/keymaster.b00
