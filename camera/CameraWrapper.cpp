@@ -231,12 +231,6 @@ static char *camera_fixup_setparams(int id, const char *settings)
         }
     }
 
-    /* Set correct video snapshot picture size to not crash */
-    if (videoMode) {
-        params.getVideoSize(&previewW, &previewH);
-        params.setPictureSize(previewW, previewH);
-    }
-
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
     params.dump();
@@ -381,12 +375,7 @@ static void camera_stop_recording(struct camera_device *device)
     if (!device)
         return;
 
-
     VENDOR_CALL(device, stop_recording);
-
-    /* Restart preview after stop recording to flush buffers and not crash */
-    VENDOR_CALL(device, stop_preview);
-    VENDOR_CALL(device, start_preview);
 }
 
 static int camera_recording_enabled(struct camera_device *device)
@@ -462,6 +451,8 @@ static int camera_set_parameters(struct camera_device *device,
     ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
 
+    android::Mutex::Autolock lock(gCameraWrapperLock);
+
     if (!device)
         return -EINVAL;
 
@@ -476,6 +467,8 @@ static char *camera_get_parameters(struct camera_device *device)
 {
     ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
+
+    android::Mutex::Autolock lock(gCameraWrapperLock);
 
     if (!device)
         return NULL;
@@ -493,6 +486,8 @@ static void camera_put_parameters(struct camera_device *device, char *params)
 {
     ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
+
+    android::Mutex::Autolock lock(gCameraWrapperLock);
 
     if (params)
         free(params);
@@ -514,6 +509,8 @@ static void camera_release(struct camera_device *device)
 {
     ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
+
+    android::Mutex::Autolock lock(gCameraWrapperLock);
 
     if (!device)
         return;
