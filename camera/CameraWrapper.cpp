@@ -505,6 +505,8 @@ static int camera_send_command(struct camera_device *device,
     ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
 
+    android::Mutex::Autolock lock(gCameraWrapperLock);
+
     if (!device)
         return -EINVAL;
 
