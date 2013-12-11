@@ -377,6 +377,10 @@ static void camera_stop_recording(struct camera_device *device)
 
 
     VENDOR_CALL(device, stop_recording);
+
+    /* Restart preview after stop recording to flush buffers and not crash */
+    VENDOR_CALL(device, stop_preview);
+    VENDOR_CALL(device, start_preview);
 }
 
 static int camera_recording_enabled(struct camera_device *device)
