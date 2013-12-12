@@ -20,4 +20,5 @@
 <resources>
     <bool name="needsEarlyVideoSize">true</bool>
     <bool name="enableVideoHDR">true</bool>
+    <bool name="previewStopsDuringSnapshot">true</bool>
 </resources>
