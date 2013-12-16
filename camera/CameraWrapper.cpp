@@ -194,9 +194,17 @@ static char *camera_fixup_setparams(int id, const char *settings)
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
-        } else if (strcmp(sceneMode, android::CameraParameters::SCENE_MODE_AUTO)) {
-            params.set(android::CameraParameters::KEY_FLASH_MODE,
-                    android::CameraParameters::FLASH_MODE_AUTO);
+            params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
+                    android::CameraParameters::AE_BRACKET_HDR);
+
+        } else {
+            params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
+                    android::CameraParameters::AE_BRACKET_HDR_OFF);
+
+            if (strcmp(sceneMode, android::CameraParameters::SCENE_MODE_AUTO)) {
+                params.set(android::CameraParameters::KEY_FLASH_MODE,
+                        android::CameraParameters::FLASH_MODE_AUTO);
+            }
         }
 
         if (strcmp(params.get("slow-shutter"), "slow-shutter-off")) {
