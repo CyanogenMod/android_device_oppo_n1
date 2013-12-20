@@ -239,6 +239,12 @@ static char *camera_fixup_setparams(int id, const char *settings)
         }
     }
 
+    /* Set correct video snapshot picture size to not crash */
+    if (videoMode) {
+        params.getVideoSize(&previewW, &previewH);
+        params.setPictureSize(previewW, previewH);
+    }
+
 #if !LOG_NDEBUG
     ALOGV("%s: fixed parameters:", __FUNCTION__);
     params.dump();
