@@ -78,8 +78,20 @@ lib/libI420colorconvert.so
 lib/libmm-color-convertor.so
 lib/libExtendedExtractor.so
 
+# Network
+lib/libcneapiclient.so
+
 # NFC
 etc/firmware/libpn544_fw.so:vendor/firmware/libpn544_fw.so
+
+# Oppo NV
+app/OppoNvProcess.apk
+app/OppoRadioShutdown.apk
+framework/qcnvitems.jar
+etc/permissions/qcnvitems.xml
+framework/qcrilhook.jar
+etc/permissions/qcrilhook.xml
+app/qcrilmsgtunnel.apk
 
 # Qualcomm framework
 lib/libdiag.so
@@ -132,6 +144,7 @@ vendor/lib/libwvdrm_L3.so
 vendor/lib/libwvm.so
 vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/drm/libdrmwvmplugin.so
+vendor/lib/mediadrm/libwvdrmengine.so
 
 # Misc
 lib/libqc-opt.so
