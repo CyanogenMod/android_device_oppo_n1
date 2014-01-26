@@ -88,4 +88,9 @@
     <!-- True if the gesture service should be started at system start -->
     <bool name="config_enableGestureService">true</bool>
 
+    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
+         it causes the device to wake up.
+         The default is false. -->
+    <bool name="config_lidControlsSleep">true</bool>
+
 </resources>
