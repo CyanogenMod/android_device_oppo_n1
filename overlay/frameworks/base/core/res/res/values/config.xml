@@ -93,4 +93,5 @@
          The default is false. -->
     <bool name="config_lidControlsSleep">true</bool>
 
+    <string name="config_mms_user_agent">OppoN1</string>
 </resources>
