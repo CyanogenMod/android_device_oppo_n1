@@ -52,6 +52,13 @@ PRODUCT_PACKAGES += \
     tpupdate.rle \
     wlan.rle
 
+# Radio files
+PRODUCT_PACKAGES += \
+    emmc_appsboot.mbn
+
+$(call add-radio-file,radio/filesmap)
+$(call add-radio-file,radio/emmc_appsboot.mbn)
+
 # call the proprietary setup
 $(call inherit-product-if-exists, vendor/oppo/n1/n1-vendor.mk)
 
