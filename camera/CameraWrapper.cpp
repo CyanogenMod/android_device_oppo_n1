@@ -90,8 +90,14 @@ static int check_vendor_module()
     return rv;
 }
 
+static const char *KEY_SLOW_SHUTTER = "slow-shutter";
+static const char *KEY_EXPOSURE_TIME = "exposure-time";
+static const char *KEY_EXPOSURE_TIME_VALUES = "exposure-time-values";
+
 static char *camera_fixup_getparams(int id, const char *settings)
 {
+    const char *exposureTimeValues = "0,1,500000,1000000,2000000,4000000,8000000";
+    const char *slowShutter = "slow-shutter-off";
     bool videoMode = false;
 
     android::CameraParameters params;
@@ -104,6 +110,10 @@ static char *camera_fixup_getparams(int id, const char *settings)
 
     if (params.get(android::CameraParameters::KEY_RECORDING_HINT)) {
         videoMode = (!strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), "true"));
+    }
+
+    if (params.get(KEY_SLOW_SHUTTER)) {
+        slowShutter = params.get(KEY_SLOW_SHUTTER);
     }
 
     /* Blatantly lie to userspace to pass CTS */
@@ -125,6 +135,24 @@ static char *camera_fixup_getparams(int id, const char *settings)
         params.set(android::CameraParameters::KEY_SUPPORTED_ISO_MODES,
                 android::CameraParameters::ISO_AUTO);
     }
+
+    /* Switch to newer slow-shutter parameter */
+    if (!strcmp(slowShutter, "slow-shutter-off")) {
+        params.set(KEY_EXPOSURE_TIME, "0");
+    } else if (!strcmp(slowShutter, "slow-shutter-auto")) {
+        params.set(KEY_EXPOSURE_TIME, "1");
+    } else if (!strcmp(slowShutter, "slow-shutter-1/2s")) {
+        params.set(KEY_EXPOSURE_TIME, "500000");
+    } else if (!strcmp(slowShutter, "slow-shutter-1s")) {
+        params.set(KEY_EXPOSURE_TIME, "1000000");
+    } else if (!strcmp(slowShutter, "slow-shutter-2s")) {
+        params.set(KEY_EXPOSURE_TIME, "2000000");
+    } else if (!strcmp(slowShutter, "slow-shutter-4s")) {
+        params.set(KEY_EXPOSURE_TIME, "4000000");
+    } else if (!strcmp(slowShutter, "slow-shutter-8s")) {
+        params.set(KEY_EXPOSURE_TIME, "8000000");
+    }
+    params.set(KEY_EXPOSURE_TIME_VALUES, exposureTimeValues);
 
     /* Remove exposure, values don't do anything */
     params.set(android::CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
@@ -158,6 +186,7 @@ static char *camera_fixup_setparams(int id, const char *settings)
     const char *sceneMode = "auto";
     const char *fpsRange = "5000,60000";
     const char *fpsRangeValues = "(5000,60000)";
+    const char *exposureTime = "0";
 
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
@@ -185,6 +214,10 @@ static char *camera_fixup_setparams(int id, const char *settings)
 
     if (params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE)) {
         fpsRangeValues = params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE);
+    }
+
+    if (params.get(KEY_EXPOSURE_TIME)) {
+        exposureTime = params.get(KEY_EXPOSURE_TIME);
     }
 
     /* De-purpleate */
@@ -244,6 +277,23 @@ static char *camera_fixup_setparams(int id, const char *settings)
     if (videoMode) {
         params.getVideoSize(&previewW, &previewH);
         params.setPictureSize(previewW, previewH);
+    }
+
+    /* Switch to newer slow-shutter parameter */
+    if (!strcmp(exposureTime, "0")) {
+        params.set(KEY_SLOW_SHUTTER, "slow-shutter-off");
+    } else if (!strcmp(exposureTime, "1")) {
+        params.set(KEY_SLOW_SHUTTER, "slow-shutter-auto");
+    } else if (!strcmp(exposureTime, "500000")) {
+        params.set(KEY_SLOW_SHUTTER, "slow-shutter-1/2s");
+    } else if (!strcmp(exposureTime, "1000000")) {
+        params.set(KEY_SLOW_SHUTTER, "slow-shutter-1s");
+    } else if (!strcmp(exposureTime, "2000000")) {
+        params.set(KEY_SLOW_SHUTTER, "slow-shutter-2s");
+    } else if (!strcmp(exposureTime, "4000000")) {
+        params.set(KEY_SLOW_SHUTTER, "slow-shutter-4s");
+    } else if (!strcmp(exposureTime, "8000000")) {
+        params.set(KEY_SLOW_SHUTTER, "slow-shutter-8s");
     }
 
 #if !LOG_NDEBUG
