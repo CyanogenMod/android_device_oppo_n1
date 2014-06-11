@@ -120,6 +120,9 @@ static char *camera_fixup_getparams(int id, const char *settings)
     params.set(android::CameraParameters::KEY_PREVIEW_FPS_RANGE, "5000,60000");
     params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(5000,60000)");
 
+    /* Hardwire the stock qualcomm values, HAL delivers invalid data */
+    params.set(android::CameraParameters::KEY_FOCUS_DISTANCES, "Infinity,Infinity,Infinity");
+
     /* Set supported scene modes */
     if (params.get(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES)) {
         params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES,
