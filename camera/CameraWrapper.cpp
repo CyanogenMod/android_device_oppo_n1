@@ -175,6 +175,9 @@ static char *camera_fixup_getparams(int id, const char *settings)
     params.set(android::CameraParameters::KEY_SUPPORTED_VIDEO_HIGH_FRAME_RATE_MODES,
             "60,90,120,off");
 
+    /* Enforce video-snapshot-supported to true */
+    params.set(android::CameraParameters::KEY_VIDEO_SNAPSHOT_SUPPORTED, "true");
+
     /* Reduce purple */
     params.set("reduce-purple", "on");
 
