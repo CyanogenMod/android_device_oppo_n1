@@ -167,6 +167,10 @@ static char *camera_fixup_getparams(int id, const char *settings)
     params.set(android::CameraParameters::KEY_AUTO_EXPOSURE_LOCK_SUPPORTED, "false");
     params.set(android::CameraParameters::KEY_AUTO_WHITEBALANCE_LOCK_SUPPORTED, "false");
 
+    /* HFR mode values has 3 entries, add a third entry for 90fps */
+    params.set(android::CameraParameters::KEY_SUPPORTED_HFR_SIZES,
+            "800x480,800x480,640x480");
+
     /* Reduce purple */
     params.set("reduce-purple", "on");
 
