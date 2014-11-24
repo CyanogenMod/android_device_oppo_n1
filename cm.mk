@@ -1,13 +1,8 @@
-$(call inherit-product, device/oppo/n1/full_n1.mk)
+$(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-# Inherit some common CM stuff
-$(call inherit-product, vendor/cm/config/gsm.mk)
-
-# Enhanced NFC
 $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
-# Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, device/oppo/n1/full_n1.mk)
 
 PRODUCT_NAME := cm_n1
 PRODUCT_DEVICE := n1
