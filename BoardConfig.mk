@@ -20,6 +20,9 @@
 # Kernel
 TARGET_KERNEL_CONFIG := cyanogenmod_n1_defconfig
 
+# Includes
+TARGET_SPECIFIC_HEADER_PATH := device/oppo/n1/include
+
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/oppo/n1/bluetooth
 
