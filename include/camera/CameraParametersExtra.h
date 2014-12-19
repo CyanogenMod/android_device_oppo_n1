@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#include "camera/CameraParametersExtraDurationTimer.h"
+
 #define CAMERA_PARAMETERS_EXTRA_C \
 const char CameraParameters::KEY_SUPPORTED_ISO_MODES[] = "iso-values"; \
 const char CameraParameters::ISO_AUTO[] = "auto"; \
@@ -24,8 +26,8 @@ const char CameraParameters::AE_BRACKET_HDR_OFF[] = "Off"; \
 const char CameraParameters::AE_BRACKET_HDR[] = "HDR"; \
 const char CameraParameters::SCENE_MODE_ASD[] = "asd"; \
 const char CameraParameters::KEY_SCENE_DETECT[] = "scene-detect"; \
-const char CameraParameters::SCENE_DETECT_ON[] = "on";
-
+const char CameraParameters::SCENE_DETECT_ON[] = "on"; \
+CAMERA_PARAMETERS_EXTRA_C_DURATION_TIMER
 
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char KEY_SUPPORTED_ISO_MODES[]; \
